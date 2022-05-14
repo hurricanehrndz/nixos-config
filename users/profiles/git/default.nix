@@ -3,43 +3,75 @@
     enable = true;
 
     extraConfig = {
-      pull.rebase = false;
+      pull.rebase = true;
     };
 
     aliases = {
-      a = "add -p";
-      co = "checkout";
-      cob = "checkout -b";
-      f = "fetch -p";
-      c = "commit";
-      p = "push";
-      ba = "branch -a";
-      bd = "branch -d";
-      bD = "branch -D";
-      d = "diff";
-      dc = "diff --cached";
-      ds = "diff --staged";
-      r = "restore";
-      rs = "restore --staged";
-      st = "status -sb";
-
-      # reset
-      soft = "reset --soft";
-      hard = "reset --hard";
-      s1ft = "soft HEAD~1";
-      h1rd = "hard HEAD~1";
-
       # logging
-      lg =
-        "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
       plog =
         "log --graph --pretty='format:%C(red)%d%C(reset) %C(yellow)%h%C(reset) %ar %C(green)%aN%C(reset) %s'";
       tlog =
         "log --stat --since='1 Day Ago' --graph --pretty=oneline --abbrev-commit --date=relative";
-      rank = "shortlog -sn --no-merges";
-
-      # delete merged branches
-      bdm = "!git branch --merged | grep -v '*' | xargs -n 1 git branch -d";
+      l =
+          "!git --no-pager log -1 --format=format:\"$path: %Cgreen%s%Creset (%Cred$(git rev-parse --abbrev-ref HEAD)%Creset/%ar)\"; echo ";
+      x =
+          "log -10 --format=format:'%Cgreen%h%Creset %Cred%d%Creset %s %Cblue(%ar by %an)%Creset'";
+      xlog =
+           "!git x";
+      xlogall =
+           "log -10 --branches --format=format:'%Cgreen%h%Creset %Cred%d%Creset %s %Cblue(%ar by %an)%Creset'";
+      xlogfull = "log --format=format:'%Cgreen%h%Creset %Cred%d%Creset %s %Cblue(%ar by %an)%Creset'";
+      xlogfullall = "log --branches --format=format:'%Cgreen%h%Creset %Cred%d%Creset %s %Cblue(%ar by %an)%Creset'";
+      glog = "log --oneline --decorate --stat --graph";
+      tree = "log --decorate --pretty=oneline --abbrev-commit --graph";
+      lc = "log ORIG_HEAD.. --stat --no-merges --graph";
+      lg1 =
+        "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'";
+      lg2 =
+          "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all";
+      lg = "!git lg1";
+      # other stuff
+      clean-all = "clean -dfq";
     };
+
+    delta = {
+      enable = true;
+    };
+
+    extraConfig = {
+      core = {
+        whitespace = "-indent-with-non-tab,trailing-space,cr-at-eol";
+      };
+      merge = {
+        tool = "vimdiff";
+        log = true;
+      };
+      mergetool = {
+        keepBackup = false;
+        vimdiff = "nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"";
+      };
+      status = {
+        showStash = true;
+      };
+      stash = {
+        showPatch = true;
+      };
+      commit = {
+        verbose = true;
+      };
+      url = {
+        "git@github.com:" = {
+          pushInsteadOf  = [
+            "github:"
+            "git://github.com/"
+            "https://github.com/"
+          ];
+        };
+        "https://github.com/" = {
+          insteadOf = "github:";
+        };
+      };
+    };
+
   };
 }
