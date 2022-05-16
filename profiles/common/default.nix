@@ -10,6 +10,7 @@ in
   time.timeZone = "America/Edmonton";
 
   environment = {
+    pathsToLink = [ "/share/zsh" ];
     variables = {
       EDITOR = "vim";
       KERNEL_NAME =
@@ -23,7 +24,6 @@ in
       XDG_CONFIG_HOME = "$HOME/.config";
       XDG_DATA_HOME = "$HOME/.local/share";
       XDG_STATE_HOME = "$HOME/.local/state";
-      ZDOTDIR = "$HOME/.config/zsh";
     };
     # Selection of sysadmin tools that can come in handy
     systemPackages = with pkgs; [
