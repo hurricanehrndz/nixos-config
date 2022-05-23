@@ -44,11 +44,12 @@ in
       gnused
       gnutar
       grc
+      hyperfine
       jq
       moreutils
       nmap
       ripgrep
-      skim
+      fzf
       tealdeer
       whois
 

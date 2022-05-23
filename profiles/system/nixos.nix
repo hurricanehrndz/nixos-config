@@ -48,7 +48,7 @@
         eval "$(${pkgs.starship}/bin/starship init bash)"
       '';
       interactiveShellInit = ''
-        source "${pkgs.skim}/share/skim/key-bindings.bash"
+        source "${pkgs.fzf}/share/fzf/key-bindings.bash"
       '';
     };
     neovim = {
