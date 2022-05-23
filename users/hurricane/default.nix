@@ -3,7 +3,7 @@
   home-manager.users = { inherit (hmUsers) hurricane; };
 
   users.users.hurricane = {
-    description = "default";
+    description = "Carlos Hernandez";
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     openssh.authorizedKeys.keys = [
