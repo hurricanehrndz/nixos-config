@@ -54,7 +54,8 @@
       bindkey   -M   vicmd   'j'             history-substring-search-down
       bindkey   -M   vicmd   '\C-X\C-E'      edit-command-line
       bindkey   -M   viins   '\C-X\C-E'      edit-command-line
-
+      bindkey '^P' history-beginning-search-backward
+      bindkey '^N' history-beginning-search-forward
     '';
   };
   programs.starship = {
