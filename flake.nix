@@ -158,7 +158,7 @@
           importables = rec {
             profiles = digga.lib.rakeLeaves ./users/profiles;
             suites = with profiles; rec {
-              base = [ zsh shellAliases direnv git ];
+              base = [ zsh shellAliases direnv git tmux ];
             };
           };
           users = {
