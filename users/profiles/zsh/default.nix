@@ -5,6 +5,7 @@
     enable = true;
     dotDir = ".config/zsh";
     defaultKeymap = "viins";
+    enableCompletion = true;
     autocd = true;
     history = {
       expireDuplicatesFirst = true;
@@ -17,11 +18,6 @@
         name = "ohmyzsh-git";
         file = "share/oh-my-zsh/plugins/git/git.plugin.zsh";
         src = pkgs.oh-my-zsh;
-      }
-      {
-        name = "history-substring-search";
-        file = "share/zsh-history-substring-search/zsh-history-substring-search.zsh";
-        src = pkgs.zsh-history-substring-search;
       }
       {
         name = "autosuggestions";
@@ -48,10 +44,6 @@
 
       bindkey   -M   viins   '\C-X\C-S'      prepend_sudo
       bindkey   -M   viins   '\C-Y'          autosuggest-accept
-      bindkey   -M   viins   '\C-K'          history-substring-search-up
-      bindkey   -M   viins   '\C-J'          history-substring-search-down
-      bindkey   -M   vicmd   'k'             history-substring-search-up
-      bindkey   -M   vicmd   'j'             history-substring-search-down
       bindkey   -M   vicmd   '\C-X\C-E'      edit-command-line
       bindkey   -M   viins   '\C-X\C-E'      edit-command-line
       bindkey '^P' history-beginning-search-backward
