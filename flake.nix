@@ -114,6 +114,7 @@
             };
             suites = with profiles; rec {
               base = [ common system.nixos networking.dhcp-all users.hurricane ];
+              mediaserver = [ plex ];
             };
           };
         };
