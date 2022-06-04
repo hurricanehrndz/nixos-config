@@ -1,9 +1,11 @@
 {
   programs.git = {
     enable = true;
-
+    userName = "Carlos Hernandez";
+    userEmail = "hurricane@hrndz.ca";
     extraConfig = {
-      pull.rebase = true;
+      pull.ff = "only";
+      safe.directory = "/etc/nixos";
     };
 
     aliases = {
