@@ -8,9 +8,9 @@
   inputs =
     {
       # Track channels with commits tested and built by hydra
-      nixos.url = "github:nixos/nixpkgs/nixos-21.11";
+      nixos.url = "github:nixos/nixpkgs/nixos-22.05";
       latest.url = "github:nixos/nixpkgs/nixos-unstable";
-      nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
+      nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
       digga.url = "github:divnix/digga";
       digga.inputs.nixpkgs.follows = "nixos";
@@ -18,7 +18,7 @@
       digga.inputs.home-manager.follows = "home";
       digga.inputs.deploy.follows = "deploy";
 
-      home.url = "github:nix-community/home-manager/release-21.11";
+      home.url = "github:nix-community/home-manager/release-22.05";
       home.inputs.nixpkgs.follows = "nixos";
 
       darwin.url = "github:LnL7/nix-darwin";
@@ -96,7 +96,6 @@
             imports = [ (digga.lib.importExportableModules ./modules) ];
             modules = [
               { lib.our = self.lib; }
-              digga.nixosModules.bootstrapIso
               digga.nixosModules.nixConfig
               home.nixosModules.home-manager
               agenix.nixosModules.age
@@ -142,7 +141,7 @@
               users = digga.lib.rakeLeaves ./users;
             };
             suites = with profiles; rec {
-              base = [ core.darwin users.darwin ];
+              base = [ system.darwin users.darwin ];
             };
           };
         };

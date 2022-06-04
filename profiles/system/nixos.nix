@@ -30,7 +30,7 @@
   services.openssh = {
     enable = true;
     passwordAuthentication = false;
-    permitRootLogin = "no";
+    permitRootLogin = lib.mkOverride 500 "no";
   };
 
   programs = {

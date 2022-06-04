@@ -1,9 +1,7 @@
 { self, config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ./common.nix
-  ];
+  imports = [ ];
 
   # Recreate /run/current-system symlink after boot
   services.activate-system.enable = true;
