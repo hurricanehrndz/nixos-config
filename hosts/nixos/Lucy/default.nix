@@ -5,5 +5,9 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Lucy has no swap device
+  zramSwap.enable = true;
+
   system.stateVersion = "22.05";
 }
