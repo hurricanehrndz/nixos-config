@@ -15,11 +15,6 @@
     };
     plugins = [
       {
-        name = "ohmyzsh-git";
-        file = "share/oh-my-zsh/plugins/git/git.plugin.zsh";
-        src = pkgs.oh-my-zsh;
-      }
-      {
         name = "autosuggestions";
         file = "share/zsh-autosuggestions/zsh-autosuggestions.zsh";
         src = pkgs.zsh-autosuggestions;
@@ -31,23 +26,26 @@
       }
     ];
     initExtraBeforeCompInit = ''
-      function prepend_sudo {
-        if [[ "$BUFFER" != su(do|)\ * ]]; then
-          BUFFER="sudo $BUFFER"
-          (( CURSOR += 5 ))
+      # Esc-S to insert sudo in front of command
+      function prepend-sudo { # Insert "sudo " at the beginning of the line
+        if [[ $BUFFER != "sudo "* ]]; then
+          BUFFER="sudo $BUFFER"; CURSOR+=5
         fi
       }
-      zle -N prepend_sudo
+      zle -N prepend-sudo
+
+      # Note: requires vi key bindings in zsh!
+      bindkey -M vicmd '^Xs' prepend-sudo
+      bindkey -M viins '^Xs' prepend-sudo
 
       autoload -U edit-command-line
       zle -N edit-command-line
 
-      bindkey   -M   viins   '\C-X\C-S'      prepend_sudo
-      bindkey   -M   viins   '\C-Y'          autosuggest-accept
-      bindkey   -M   vicmd   '\C-X\C-E'      edit-command-line
-      bindkey   -M   viins   '\C-X\C-E'      edit-command-line
-      bindkey '^P' history-beginning-search-backward
-      bindkey '^N' history-beginning-search-forward
+      bindkey   -M   viins   '^Y'      autosuggest-accept
+      bindkey   -M   vicmd   '^X^E'    edit-command-line
+      bindkey   -M   viins   '^X^E'    edit-command-line
+      bindkey   -M   viins   '^P'      history-search-backward
+      bindkey   -M   viins   '^N'      history-search-forward
     '';
   };
   programs.starship = {
