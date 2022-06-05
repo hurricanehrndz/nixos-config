@@ -153,11 +153,12 @@
             profiles = digga.lib.rakeLeaves ./users/profiles;
             suites = with profiles; rec {
               base = [ zsh shellAliases direnv git tmux ];
+              dev = [ nvim ];
             };
           };
           users = {
             # These only exist within the `hmUsers` attrset
-            hurricane = { suites, ... }: { imports = suites.base; };
+            hurricane = { suites, ... }: { imports = suites.base ++ suites.dev; };
             darwin = { suites, ... }: { imports = suites.base; };
           }; # digga.lib.importers.rakeLeaves ./users/hm;
         };
