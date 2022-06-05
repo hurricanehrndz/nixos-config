@@ -14,6 +14,7 @@ This flake is configured with the use of [digga][digga].
 
 ## Install
 
+Install without secrets:
 ```
 # Prep drive, and mount on /mnt, then
 export FLAKE_HOST="Lucy"
@@ -24,4 +25,10 @@ sudo git clone https://github.com/hurricanehrndz/nixos-config.git /mnt/etc/nixos
 sudo cp ~/nixos/hardware-configuration.nix /mnt/etc/nixos/hosts/nixos/$FLAKE_HOST/hardware-configuration.nix
 sudo nix flake update /mnt/etc/nixos
 sudo nixos-install --root /mnt --no-root-passwd --flake "/mnt/etc/nixos#$FLAKE_HOST"
+
+# After booting system, if ownership of /etc/nixos is changed, run:
+sudo git config --global --add safe.directory /etc/nixos
+# or run builds with
+nixos-rebuild switch --use-remote-sudo
 ```
+
