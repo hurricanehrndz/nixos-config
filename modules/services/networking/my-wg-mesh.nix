@@ -36,6 +36,7 @@ in
 
         # set this service as a oneshot job
         serviceConfig.Type = "oneshot";
+        serviceConfig.TimeoutSec = 90;
 
         unitConfig.ConditionPathExists = "${cfg.authKeyFile}";
 
