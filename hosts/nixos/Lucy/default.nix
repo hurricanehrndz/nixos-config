@@ -1,4 +1,4 @@
-{ suites, self, ... }:
+{ suites, self, config, ... }:
 
 {
   ### root password is empty by default ###
@@ -18,8 +18,13 @@
       path = "/etc/ssh/ssh_host_ed25519_key.pub";
       symlink = false;
     };
+    "tailscale.authkey".file = "${self}/secrets/services/tailscale/authkey.age";
   };
 
+  services.MyWgMesh = {
+    enable = true;
+    authKeyFile = config.age.secrets."tailscale.authkey".path;
+  };
   # Lucy has no swap device
   zramSwap.enable = true;
 

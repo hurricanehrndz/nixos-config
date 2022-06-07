@@ -17,5 +17,5 @@ in
 {
   "hosts/lucy/ssh_host_ed25519_key.age".publicKeys = allKeys;
   "hosts/lucy/ssh_host_ed25519_key.pub.age".publicKeys = allKeys;
-  "services/ts/env.age".publicKeys = allKeys;
+  "services/tailscale/authkey.age".publicKeys = allKeys;
 }
