@@ -27,6 +27,20 @@
           vim.cmd([[colorscheme tokyonight]])
         '';
       }
+      {
+        plugin = telescope-nvim;
+        type = "lua";
+        config = ''
+          local telescope = require("telescope")
+          telescope.load_extension("fzf")
+
+          vim.keymap.set("n", "<C-p>", require("telescope.builtin").git_files)
+          vim.keymap.set("n", "<space>ff", require("telescope.builtin").find_files)
+        '';
+      }
+      plenary-nvim
+      popup-nvim
+      telescope-fzf-native-nvim
     ];
   };
 }
