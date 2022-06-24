@@ -24,8 +24,6 @@
       darwin.url = "github:LnL7/nix-darwin";
       darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
 
-      nur.url = "github:nix-community/NUR";
-
       deploy.url = "github:serokell/deploy-rs";
       deploy.inputs.nixpkgs.follows = "nixos";
 
@@ -52,7 +50,6 @@
     , nixos
     , home
     , nixos-hardware
-    , nur
     , agenix
     , nvfetcher
     , snapraid-runner
@@ -88,7 +85,6 @@
             });
           })
 
-          nur.overlay
           agenix.overlay
           nvfetcher.overlay
           snapraid-runner.overlays.snapraid-runner

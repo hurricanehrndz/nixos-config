@@ -465,21 +465,6 @@
         "type": "indirect"
       }
     },
-    "nur": {
-      "locked": {
-        "lastModified": 1656101138,
-        "narHash": "sha256-ysULOU4dSaRP70DiZ/haXKL47s21cyp+U5RlqKWBu4s=",
-        "owner": "nix-community",
-        "repo": "NUR",
-        "rev": "a3ed9610df8da22595b2b64b44edda91d3dcfbb5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "NUR",
-        "type": "github"
-      }
-    },
     "nvfetcher": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -516,7 +501,6 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-darwin-stable": "nixpkgs-darwin-stable",
-        "nur": "nur",
         "nvfetcher": "nvfetcher",
         "snapraid-runner": "snapraid-runner"
       }
