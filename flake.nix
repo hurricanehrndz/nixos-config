@@ -24,6 +24,8 @@
       darwin.url = "github:LnL7/nix-darwin";
       darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
 
+      nur.url = "github:nix-community/NUR";
+
       deploy.url = "github:serokell/deploy-rs";
       deploy.inputs.nixpkgs.follows = "nixos";
 
