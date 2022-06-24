@@ -89,7 +89,7 @@
           nur.overlay
           agenix.overlay
           nvfetcher.overlay
-          snapraid-runner.overlay
+          snapraid-runner.overlays.snapraid-runner
 
           (import ./pkgs)
         ];
