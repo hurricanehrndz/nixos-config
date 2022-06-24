@@ -30,6 +30,9 @@
       agenix.url = "github:ryantm/agenix";
       agenix.inputs.nixpkgs.follows = "nixos";
 
+      snapraid-runner.url = "github:hurricanehrndz/snapraid-runner/hrndz";
+      snapraid-runner.inputs.nixpkgs.follows = "nixos";
+
       nvfetcher.url = "github:berberman/nvfetcher";
       nvfetcher.inputs.nixpkgs.follows = "nixos";
 
@@ -50,6 +53,7 @@
     , nur
     , agenix
     , nvfetcher
+    , snapraid-runner
     , deploy
     , nixpkgs
     , ...
@@ -85,6 +89,7 @@
           nur.overlay
           agenix.overlay
           nvfetcher.overlay
+          snapraid-runner.overlay
 
           (import ./pkgs)
         ];
@@ -99,6 +104,7 @@
               digga.nixosModules.nixConfig
               home.nixosModules.home-manager
               agenix.nixosModules.age
+              snapraid-runner.nixosModules.snapraid-runner
             ];
           };
 
