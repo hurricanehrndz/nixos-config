@@ -1,4 +1,4 @@
-{ config, lib, pkgs, snapraid-runner-src, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   mkFileSystems =
@@ -43,9 +43,7 @@ in
   # allowUnfree
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [
-      (final: prev: { snapraid-runner = prev.callPackage ./pkgs/snapraid-runner.nix {inherit snapraid-runner-src;}; })
-    ];
+    overlays = [];
   };
 
   # Set your time zone.
