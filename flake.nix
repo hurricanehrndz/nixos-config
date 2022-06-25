@@ -109,6 +109,7 @@
           hosts = {
             /* set host-specific properties here */
             Lucy = { };
+            DeepThough = { };
           };
           importables = rec {
             profiles = digga.lib.rakeLeaves ./profiles // {
