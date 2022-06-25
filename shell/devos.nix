@@ -57,7 +57,7 @@ in
 
     (docs mdbook)
   ]
-  ++ lib.optional (!pkgs.stdenv.buildPlatform.isi686)
+  ++ lib.optional (!(pkgs.stdenv.isDarwin && pkgs.stdenv.isAarch64))
     (devos cachix)
   ++ lib.optional (pkgs.stdenv.hostPlatform.isLinux && !pkgs.stdenv.buildPlatform.isDarwin)
     (devos inputs.nixos-generators.defaultPackage.${pkgs.system})
