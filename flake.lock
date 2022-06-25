@@ -513,11 +513,11 @@
         "utils": "utils_2"
       },
       "locked": {
-        "lastModified": 1656072953,
-        "narHash": "sha256-CFmNl9WJLrNvRt/7aMLBzr4mJsKh9Wh1pVBVD6trLkY=",
+        "lastModified": 1656193241,
+        "narHash": "sha256-OvLig5xQielRS1a7CAvNf9isbOztXLtmYdCc3ya4wKA=",
         "owner": "hurricanehrndz",
         "repo": "snapraid-runner",
-        "rev": "734f42581e30375c771f4cff771cf261b0cb50a7",
+        "rev": "f55b7c7afe7b3f607e83cb3eeb35a029d7867ccf",
         "type": "github"
       },
       "original": {
