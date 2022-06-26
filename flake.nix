@@ -45,8 +45,6 @@
     nur.url = "github:nix-community/NUR";
     nvfetcher.url = "github:berberman/nvfetcher";
     nvfetcher.inputs.nixpkgs.follows = "nixpkgs";
-
-    nixpkgs.follows = "nixos-stable";
   };
 
   outputs =
