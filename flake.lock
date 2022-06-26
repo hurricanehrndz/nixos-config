@@ -304,26 +304,6 @@
         "type": "github"
       }
     },
-    "naersk": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1655042882,
-        "narHash": "sha256-9BX8Fuez5YJlN7cdPO63InoyBy7dm3VlJkkmTt6fS1A=",
-        "owner": "nmattia",
-        "repo": "naersk",
-        "rev": "cddffb5aa211f50c4b8750adbec0bbbdfb26bb9f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nmattia",
-        "repo": "naersk",
-        "type": "github"
-      }
-    },
     "nixlib": {
       "locked": {
         "lastModified": 1636849918,
@@ -394,7 +374,7 @@
     "nixos-unstable": {
       "locked": {
         "lastModified": 1656239181,
-        "narHash": "sha256-wW1xRFBn376yGloXZ4QzBE4hjipMawpV18Lshd9QSPw=",
+        "narHash": "sha256-oQ3ayOqm4TDUlnj5ef2LavL/9Bv8I5j88IzZIEZJX9g=",
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "f2537a505d45c31fe5d9c27ea9829b6f4c4e6ac5",
@@ -419,22 +399,6 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixpkgs-22.05-darwin",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-trunk": {
-      "locked": {
-        "lastModified": 1656278341,
-        "narHash": "sha256-6Pkxp3XrZH+pwX+TwHKm0f/730cJrCQYGTOBM7BDtWg=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "a71afdaa3b5715743526f03f302305c0c78bd6f9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "master",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -499,7 +463,6 @@
         "deploy": "deploy",
         "digga": "digga",
         "home-manager": "home-manager",
-        "naersk": "naersk",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixos-stable": "nixos-stable",
@@ -508,7 +471,6 @@
           "nixos-stable"
         ],
         "nixpkgs-darwin-stable": "nixpkgs-darwin-stable",
-        "nixpkgs-trunk": "nixpkgs-trunk",
         "nur": "nur",
         "nvfetcher": "nvfetcher",
         "snapraid-runner": "snapraid-runner"
