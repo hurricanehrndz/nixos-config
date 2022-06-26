@@ -9,7 +9,6 @@
     # Track channels with commits tested and built by hydra
     nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-trunk.url = "github:NixOS/nixpkgs/master";
     nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
     # Flake utilities.
@@ -47,10 +46,6 @@
     nvfetcher.url = "github:berberman/nvfetcher";
     nvfetcher.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Rust tools
-    naersk.url = "github:nmattia/naersk";
-    naersk.inputs.nixpkgs.follows = "nixpkgs";
-
     nixpkgs.follows = "nixos-stable";
   };
 
@@ -85,7 +80,6 @@
           overlays = [ ];
         };
         nixos-unstable = { };
-        nixpkgs-trunk = { };
       };
 
       lib = import ./lib { lib = digga.lib // nixos-stable.lib; };
