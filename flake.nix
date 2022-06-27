@@ -14,6 +14,7 @@
     # Flake utilities.
     digga.url = "github:divnix/digga";
     digga.inputs.nixpkgs.follows = "nixpkgs";
+    digga.inputs.darwin.follows = "darwin";
     digga.inputs.nixlib.follows = "nixpkgs";
     digga.inputs.home-manager.follows = "home-manager";
     digga.inputs.deploy.follows = "deploy";
