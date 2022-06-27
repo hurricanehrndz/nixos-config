@@ -304,6 +304,26 @@
         "type": "github"
       }
     },
+    "naersk": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1655042882,
+        "narHash": "sha256-9BX8Fuez5YJlN7cdPO63InoyBy7dm3VlJkkmTt6fS1A=",
+        "owner": "nmattia",
+        "repo": "naersk",
+        "rev": "cddffb5aa211f50c4b8750adbec0bbbdfb26bb9f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nmattia",
+        "repo": "naersk",
+        "type": "github"
+      }
+    },
     "nixlib": {
       "locked": {
         "lastModified": 1636849918,
@@ -323,7 +343,7 @@
       "inputs": {
         "nixlib": "nixlib",
         "nixpkgs": [
-          "nixos-stable"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -374,7 +394,7 @@
     "nixos-unstable": {
       "locked": {
         "lastModified": 1656239181,
-        "narHash": "sha256-wW1xRFBn376yGloXZ4QzBE4hjipMawpV18Lshd9QSPw=",
+        "narHash": "sha256-oQ3ayOqm4TDUlnj5ef2LavL/9Bv8I5j88IzZIEZJX9g=",
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "f2537a505d45c31fe5d9c27ea9829b6f4c4e6ac5",
@@ -385,18 +405,6 @@
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
-      }
-    },
-    "nixpkgs": {
-      "locked": {
-        "lastModified": 0,
-        "narHash": "sha256-MsC44YZ6wuBwn5Bu8T+RVoQWlp2l5BR6hhmNoAAHIEw=",
-        "path": "/nix/store/jdnxb083c9nbrhzyzfjck2mn0491a7xv-source",
-        "type": "path"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
       }
     },
     "nixpkgs-darwin-stable": {
@@ -433,11 +441,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1656277200,
-        "narHash": "sha256-6z1eLdYaJbN1K1A6wJaGBwhOsFSQFktrhzJJsJLNGFU=",
+        "lastModified": 1656297619,
+        "narHash": "sha256-YTfTA7WlHpcdn3DNtLwgbrsu5eI7U9bsP4BqnCFp4SA=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "2b15f00595c7234ece4c657094cee2ddcaea14e7",
+        "rev": "860c22f6924ecc3b9ac01e98159e3178e16cbf02",
         "type": "github"
       },
       "original": {
@@ -475,11 +483,14 @@
         "deploy": "deploy",
         "digga": "digga",
         "home-manager": "home-manager",
+        "naersk": "naersk",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixos-stable": "nixos-stable",
         "nixos-unstable": "nixos-unstable",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": [
+          "nixos-stable"
+        ],
         "nixpkgs-darwin-stable": "nixpkgs-darwin-stable",
         "nur": "nur",
         "nvfetcher": "nvfetcher",

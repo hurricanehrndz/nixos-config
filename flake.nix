@@ -23,7 +23,7 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-generators.url = "github:nix-community/nixos-generators";
-    nixos-generators.inputs.nixpkgs.follows = "nixos-stable";
+    nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
 
     # System tools
     snapraid-runner.url = "github:hurricanehrndz/snapraid-runner/hrndz";
@@ -45,6 +45,12 @@
     nur.url = "github:nix-community/NUR";
     nvfetcher.url = "github:berberman/nvfetcher";
     nvfetcher.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Rust tools
+    naersk.url = "github:nmattia/naersk";
+    naersk.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixpkgs.follows = "nixos-stable";
   };
 
   outputs =
