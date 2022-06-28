@@ -114,6 +114,7 @@
             digga.nixosModules.nixConfig
             home-manager.nixosModules.home-manager
             agenix.nixosModules.age
+            snapraid-runner.nixosModules.snapraid-runner
           ];
         };
 

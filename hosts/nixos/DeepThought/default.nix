@@ -35,15 +35,12 @@ in
       mergerfs
       mergerfs-tools
       parted
-      snapraid-runner
     ];
   };
 
   # enable snapraid
   snapraid = {
     enable = true;
-    scrub.interval = "";
-    sync.interval = "";
     extraConfig = ''
       nohidden
       block_size 256
@@ -83,7 +80,11 @@ in
       "aquota.group"
       "aquota.user"
     ];
+  };
 
+  snapraid-runner = {
+    enable = true;
+    notification.enable = false;
   };
 
   # Samba
