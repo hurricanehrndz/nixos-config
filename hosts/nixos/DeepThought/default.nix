@@ -36,7 +36,7 @@ in
       symlink = false;
     };
     "hosts/DeepThought/ssh_host_ed25519_key.pub" = {
-      file = "${self}/secrets/DeepThought/ssh_host_ed25519_key.pub.age";
+      file = "${self}/secrets/hosts/DeepThought/ssh_host_ed25519_key.pub.age";
       path = "/etc/ssh/ssh_host_ed25519_key.pub";
       symlink = false;
     };
