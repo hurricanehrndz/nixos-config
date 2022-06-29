@@ -1,4 +1,4 @@
-{ suites, config, lib, pkgs, ... }:
+{ suites, self, config, lib, pkgs, ... }:
 
 let
   mkFileSystems =
