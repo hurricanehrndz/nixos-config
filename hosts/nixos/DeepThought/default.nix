@@ -36,11 +36,11 @@ in
       symlink = false;
     };
     "hosts/DeepThought/ssh_host_ed25519_key.pub" = {
-      file = "${self}/secrets/DeepThought/lucy/ssh_host_ed25519_key.pub.age";
+      file = "${self}/secrets/DeepThought/ssh_host_ed25519_key.pub.age";
       path = "/etc/ssh/ssh_host_ed25519_key.pub";
       symlink = false;
     };
-    "snapraid-runner/apprise.yaml".file = "${self}/secrets/services/snapraid-runner/apprise.yaml.age";
+    "snapraid-runner.apprise.yaml".file = "${self}/secrets/services/snapraid-runner/apprise.yaml.age";
   };
 
   # List packages installed in system profile.
@@ -101,7 +101,7 @@ in
     enable = true;
     notification = {
       enable = true;
-      config = config.age.secrets."snapraid-runner/apprise.yaml".path;
+      config = config.age.secrets."snapraid-runner.apprise.yaml".path;
     };
   };
 
