@@ -18,13 +18,19 @@
       path = "/etc/ssh/ssh_host_ed25519_key.pub";
       symlink = false;
     };
+    # needs to get updated on recreating a system (exprie every 6 monts)
     "tailscale.authkey".file = "${self}/secrets/services/tailscale/authkey.age";
     "deepthought-rw.creds".file = "${self}/secrets/remote-fs/deepthought-rw.creds.age";
+    "grabber.ini".file = "${self}/secrets/services/data-access/grabber.ini.age";
   };
 
-  services.MyWgMesh = {
+  services.myWgMesh = {
     enable = true;
     authKeyFile = config.age.secrets."tailscale.authkey".path;
+  };
+
+  services.data-access = {
+    grabber.configFile = config.age.secrets."grabber.ini".path;
   };
   # Lucy has no swap device
   zramSwap.enable = true;

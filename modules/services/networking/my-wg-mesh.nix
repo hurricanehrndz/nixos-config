@@ -3,10 +3,10 @@
 with lib;
 
 let
-  cfg = config.services.MyWgMesh;
+  cfg = config.services.myWgMesh;
 in
 {
-  options.services.MyWgMesh = {
+  options.services.myWgMesh = {
     enable = mkEnableOption "Enable mesh VPN service tailscale.";
 
     authKeyFile = mkOption {
