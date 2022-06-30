@@ -19,7 +19,7 @@
       symlink = false;
     };
     "tailscale.authkey".file = "${self}/secrets/services/tailscale/authkey.age";
-    "deepthought-rw.creds".file = "${self}/secrets/remote-fs/deepthouht-rw.creds.age";
+    "deepthought-rw.creds".file = "${self}/secrets/remote-fs/deepthought-rw.creds.age";
   };
 
   services.MyWgMesh = {
