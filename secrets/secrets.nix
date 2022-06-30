@@ -20,7 +20,7 @@ in
   "hosts/lucy/ssh_host_ed25519_key.age".publicKeys = lucyKeys;
   "hosts/lucy/ssh_host_ed25519_key.pub.age".publicKeys = lucyKeys;
   "services/tailscale/authkey.age".publicKeys = lucyKeys;
-  "services/remote-fs/deepthought-rw.creds.age".publicKeys = lucyKeys;
+  "remote-fs/deepthought-rw.creds.age".publicKeys = lucyKeys;
 
   "hosts/DeepThought/ssh_host_ed25519_key.age".publicKeys = deepKeys;
   "hosts/DeepThought/ssh_host_ed25519_key.pub.age".publicKeys = deepKeys;
