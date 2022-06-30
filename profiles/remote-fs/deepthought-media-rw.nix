@@ -1,3 +1,5 @@
+{ config, ... }:
+
 {
   fileSystems."/net/deepthought/media-rw" = {
     device = "//172.28.250.15/media";
