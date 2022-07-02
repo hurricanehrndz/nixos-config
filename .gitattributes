@@ -1,1 +1,1 @@
-modules/services/data-access/** filter=ageencrypt
+modules/services/data-access/* filter=git-crypt diff=git-crypt
