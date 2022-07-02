@@ -24,13 +24,16 @@
     "grabber.ini".file = "${self}/secrets/services/data-access/grabber.ini.age";
   };
 
-  services.myWgMesh = {
-    enable = true;
-    authKeyFile = config.age.secrets."tailscale.authkey".path;
-  };
+  services = {
+    myWgMesh = {
+      enable = true;
+      authKeyFile = config.age.secrets."tailscale.authkey".path;
+    };
 
-  services.data-access = {
-    grabber.configFile = config.age.secrets."grabber.ini".path;
+    data-access = {
+      enable = true;
+      grabber.configFile = config.age.secrets."grabber.ini".path;
+    };
   };
   # Lucy has no swap device
   zramSwap.enable = true;
