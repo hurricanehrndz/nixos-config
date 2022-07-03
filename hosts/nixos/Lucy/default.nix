@@ -1,12 +1,12 @@
 { suites, self, config, ... }:
 
 let
- domain_name = "hrndz.ca"
+  domain_name = "hrndz.ca";
 in
 {
   ### root password is empty by default ###
   imports = (with suites;
-  base ++ mediaserver ++ services-host) ++ [ ./hardware-configuration.nix ];
+    base ++ mediaserver ++ services-host) ++ [ ./hardware-configuration.nix ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
