@@ -22,6 +22,7 @@ in
   "services/tailscale/authkey.age".publicKeys = lucyKeys;
   "services/data-access/grabber.ini.age".publicKeys = lucyKeys;
   "remote-fs/deepthought-rw.creds.age".publicKeys = lucyKeys;
+  "services/traefik/env.age".publicKeys = lucyKeys;
 
   "hosts/DeepThought/ssh_host_ed25519_key.age".publicKeys = deepKeys;
   "hosts/DeepThought/ssh_host_ed25519_key.pub.age".publicKeys = deepKeys;
