@@ -1,12 +1,12 @@
 { suites, self, config, ... }:
 
 let
-  domain_name = "hrndz.ca"
-    in
-    {
-    ### root password is empty by default ###
-    imports = (with suites;
-  base ++ mediaserver) ++ [ ./hardware-configuration.nix ];
+ domain_name = "hrndz.ca"
+in
+{
+  ### root password is empty by default ###
+  imports = (with suites;
+  base ++ mediaserver ++ services-host) ++ [ ./hardware-configuration.nix ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -43,4 +43,4 @@ let
   zramSwap.enable = true;
 
   system.stateVersion = "22.05";
-  }
+}

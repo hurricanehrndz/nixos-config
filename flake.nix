@@ -131,6 +131,7 @@
           suites = with profiles; rec {
             base = [ common system.nixos networking.dhcp-all users.hurricane ];
             mediaserver = [ plex remote-fs.deepthought-media-ro remote-fs.deepthought-media-rw ];
+            services-host = [ traefik ];
           };
         };
       };
