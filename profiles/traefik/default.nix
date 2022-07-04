@@ -12,7 +12,6 @@ in
         level = "DEBUG";
       };
       serversTransport.forwardingTimeouts.idleConnTimeout = "5s";
-      providers.file.directory = "${dynamicConfDir}";
       api = {
       	insecure = true;
       };
