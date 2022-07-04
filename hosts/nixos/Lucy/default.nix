@@ -1,8 +1,5 @@
 { suites, self, config, ... }:
 
-let
-  domain_name = "hrndz.ca";
-in
 {
   ### root password is empty by default ###
   imports = (with suites;
@@ -39,6 +36,8 @@ in
       grabber.initConfigFile = config.age.secrets."grabber.ini".path;
     };
   };
+
+  networking.domain = "hrndz.ca";
   # Lucy has no swap device
   zramSwap.enable = true;
 

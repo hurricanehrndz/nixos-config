@@ -1,16 +1,32 @@
-{ self, ... }:
+{ self, config, ... }:
 
+let
+  dynamicConfDir = "${config.services.traefik.dataDir}/conf.d";
+in
 {
+  systemd.tmpfiles.rules = [ "d '${dynamicConfDir}' 0700 traefik traefik - -" ];
   services.traefik = {
     enable = true;
     staticConfigOptions = {
-      providers.file.directory = "${config.services.traefik.dataDir}/conf.d";
-      api.insecure = true;
+      log = {
+        level = "DEBUG";
+      };
+      serversTransport.forwardingTimeouts.idleConnTimeout = "5s";
+      providers.file.directory = "${dynamicConfDir}";
+      api = {
+      	insecure = true;
+      };
       entryPoints = {
-        web.address = ":80";
+        web = { 
+	  address = ":80";
+          http.redirections.entrypoint = {
+           to = "websecure";
+           scheme = "https";
+          };
+        };
         websecure.address = ":443";
       };
-      certificatesResolvers."dnsResolver".acme = {
+      certificatesResolvers.dnsResolver.acme = {
         dnschallenge = {
           provider = "cloudflare";
           resolvers = [
@@ -19,32 +35,25 @@
           ];
         };
         # TRAEFIK_CERTIFICATESRESOLVERS_<NAME>_ACME_EMAIL:
-        storage = "acme.json";
+        storage = "${config.services.traefik.dataDir}/acme.json";
       };
-      serversTransport.forwardingTimeouts.idleConnTimeout = "5s";
+    };
+    dynamicConfigOptions = {
       http.middlewares = {
-        "redirect-to-https" = {
-          redirectscheme.scheme = https;
+        redirect-to-https = {
+          redirectscheme.scheme = "https";
           redirectscheme.permanent = true;
         };
-        "traefik-stripprefix" = {
-          stripprefix.prefixes = "/traefik";
+        traefik-stripprefix = {
+          stripPrefix.prefixes = [
+	    "/traefik"
+	  ];
         };
       };
-      routers = {
-        # Global redirect to HTTPS
-        "redirs" = {
-          rule = "hostregexp=(`{host:.+}`)";
-          entryPoints = [
-            "web"
-          ];
-          middlewares = [
-            "redirect-to-https"
-          ];
-        };
+      http.routers = {
         # Route internal api
-        "traefik" = {
-          rule = "Host(`${hostname}.${domain_name}`) && (PathPrefix(`/traefik`) || PathPrefix(`/api`))";
+        traefik = with config.networking; {
+          rule = "Host(`${hostName}.${domain}`) && (PathPrefix(`/traefik`) || PathPrefix(`/api`))";
           entryPoints = [
             "websecure"
           ];
@@ -52,7 +61,7 @@
             "traefik-stripprefix"
           ];
           service = "api@internal";
-          tls.certresolver = "dnsResolver";
+          tls.certResolver = "dnsResolver";
         };
       };
     };
