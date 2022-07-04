@@ -108,7 +108,10 @@
         hostDefaults = {
           system = "x86_64-linux";
           channelName = "nixos-stable";
-          imports = [ (digga.lib.importExportableModules ./modules) ];
+          imports = [
+            (digga.lib.importExportableModules ./modules/common)
+            (digga.lib.importExportableModules ./modules/nixos)
+          ];
           modules = [
             { lib.our = self.lib; }
             digga.nixosModules.nixConfig
@@ -140,7 +143,10 @@
         hostDefaults = {
           system = "x86_64-darwin";
           channelName = "nixpkgs-darwin-stable";
-          imports = [ (digga.lib.importExportableModules ./modules) ];
+          imports = [
+            (digga.lib.importExportableModules ./modules/common)
+            # (digga.lib.importExportableModules ./modules/darwin)
+          ];
           modules = [
             { lib.our = self.lib; }
             digga.darwinModules.nixConfig
