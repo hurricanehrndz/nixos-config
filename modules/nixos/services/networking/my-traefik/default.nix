@@ -7,57 +7,14 @@ with lib;
 let
   cfg = config.services.myTraefikProxy;
   dynamicConfDir = "${config.services.traefik.dataDir}/conf.d";
-  jsonValue = with types;
-    let
-      valueType = nullOr
-        (oneOf [
-          bool
-          int
-          float
-          str
-          (lazyAttrsOf valueType)
-          (listOf valueType)
-        ]) // {
-        description = "JSON value";
-        emptyValue.value = { };
-      };
-    in
-    valueType;
-  # copy/pasta from nixpkgs
-  staticConfigFile = pkgs.runCommand "config.toml"
-    {
-      buildInputs = [ pkgs.yj ];
-      preferLocalBuild = true;
-    } ''
-    yj -jt -i \
-      < ${
-        pkgs.writeText "static_config.json" (builtins.toJSON
-          (recursiveUpdate cfg.staticConfigOptions {
-            providers.file.directory = "${dynamicConfDir}";
-          }))
-      } \
-      > $out
-  '';
-  # copy/pasta from nixpkgs
-  traefikDynamicConfigFile = configOptions: pkgs.runCommand "config.toml"
-    {
-      buildInputs = [ pkgs.remarshal ];
-      preferLocalBuild = true;
-    } ''
-    remarshal -if json -of toml \
-      < ${
-        pkgs.writeText "dynamic_config.json"
-        (builtins.toJSON configOptions)
-      } \
-      > $out
-  '';
+  settingsFormat = pkgs.formats.yaml { };
 in
 {
   options.services.myTraefikProxy = with types; {
     enable = mkEnableOption "personal Traefik proxy";
 
     environmentFile = mkOption {
-      type = types.nullOr types.path;
+      type = nullOr path;
       default = null;
       description = ''
         Environment file (see <literal>systemd.exec(5)</literal>
@@ -70,7 +27,7 @@ in
       description = ''
         Static configuration for personal Traefik proxy.
       '';
-      type = jsonValue;
+      type = settingsFormat.type;
       example = {
         entryPoints.web.address = ":8080";
         entryPoints.http.address = ":80";
@@ -107,62 +64,87 @@ in
         };
       };
     };
-    mainDynamicConfigOptions = mkOption {
+    dynamicConfigOptions = mkOption {
       description = ''
-        Main dynamic configuration for Traefik.
+        Dynamic configurations for Traefik.
       '';
-      type = jsonValue;
-      example = {
-        http.routers.router1 = {
-          rule = "Host(`localhost`)";
-          service = "service1";
-        };
-
-        http.services.service1.loadBalancer.servers =
-          [{ url = "http://localhost:8080"; }];
-      };
-      default = {
-        http.middlewares = {
-          traefik-stripprefix = {
-            stripPrefix.prefixes = [
-              "/traefik"
-            ];
+      type = with types; attrsOf (submodule {
+        options = {
+          enable = mkOption {
+            type = types.bool;
+            default = true;
+          };
+          value = mkOption {
+            type = settingsFormat.type;
           };
         };
-        http.routers = {
-          # Route internal api
-          traefik = with config.networking; {
-            rule = "Host(`${hostName}.${domain}`) && (PathPrefix(`/traefik`) || PathPrefix(`/api`))";
-            entryPoints = [
-              "websecure"
-            ];
-            middlewares = [
-              "traefik-stripprefix"
-            ];
-            service = "api@internal";
-            tls.certResolver = "dnsResolver";
-          };
-        };
-      };
+      });
     };
   };
 
   config = mkIf cfg.enable {
     systemd.tmpfiles.rules = [ "d '${dynamicConfDir}' 0700 traefik traefik - -" ];
-    services.traefik = {
-      enable = true;
-      staticConfigFile = "${staticConfigFile}";
+    services.traefik =
+      let
+        staticConfigFile = settingsFormat.generate "traefik-static.yml" cfg.staticConfigOptions;
+      in
+      {
+        enable = true;
+        staticConfigFile = "${staticConfigFile}";
+      };
+
+    services.myTraefikProxy = {
+      dynamicConfigOptions.defaultConfig = {
+        enable = true;
+        value = {
+          http.middlewares = {
+            traefik-stripprefix = {
+              stripPrefix.prefixes = [
+                "/traefik"
+              ];
+            };
+          };
+          http.routers = {
+            # Route internal api
+            traefik = with config.networking; {
+              rule = "Host(`${hostName}.${domain}`) && (PathPrefix(`/traefik`) || PathPrefix(`/api`))";
+              entryPoints = [
+                "websecure"
+              ];
+              middlewares = [
+                "traefik-stripprefix"
+              ];
+              service = "api@internal";
+              tls.certResolver = "dnsResolver";
+            };
+          };
+        };
+      };
     };
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];
     systemd.services.traefik =
       let
-        mainDynamicConfigFile = traefikDynamicConfigFile cfg.mainDynamicConfigOptions;
+        dynamicConfigs_symlink_cmds =
+          let
+            buildConfigFile = key: configFile:
+              let
+                name = "${key}.yml";
+                file = settingsFormat.generate name configFile.value;
+              in
+              "ln -sf ${file} ${dynamicConfDir}/${name}";
+            buildConfigFiles = mapAttrsToList buildConfigFile;
+          in
+          pipe cfg.dynamicConfigOptions [
+            (filterAttrs (_: conf: conf.enable))
+            buildConfigFiles
+          ];
       in
       {
         preStart = ''
-          ln -sf ${mainDynamicConfigFile} ${dynamicConfDir}/main.toml
-        '';
+          find ${dynamicConfDir} -type l -delete
+
+        '' + (concatStringsSep "\n" dynamicConfigs_symlink_cmds);
       } // optionalAttrs (cfg.environmentFile != null) {
         serviceConfig.EnvironmentFile = cfg.environmentFile;
       };

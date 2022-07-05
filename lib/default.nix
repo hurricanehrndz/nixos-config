@@ -1,2 +1,4 @@
 { lib }:
-lib.makeExtensible (self: { })
+lib.makeExtensible (self: {
+  filterEnabled = filterAttrs (_: conf: conf.enable);
+})
