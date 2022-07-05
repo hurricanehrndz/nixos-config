@@ -107,6 +107,22 @@ in
                 "/traefik"
               ];
             };
+            add-permanent-slash = {
+              redirectregex = {
+                permanent = true;
+                regex = "^(https?://[^/]+/[a-z0-9_]+)$";
+                replacement = ''''${1}/'';
+              };
+            };
+            strip-service-slug = {
+              stripprefixregex.regex = "/[a-z0-9_]+";
+            };
+            our-slash = {
+              chain.middlewares = [
+                "add-permanent-slash"
+                "strip-service-slug"
+              ];
+            };
           };
           http.routers = {
             # Route internal api
