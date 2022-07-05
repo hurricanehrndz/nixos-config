@@ -86,7 +86,11 @@ in
     systemd.tmpfiles.rules = [ "d '${dynamicConfDir}' 0700 traefik traefik - -" ];
     services.traefik =
       let
-        staticConfigFile = settingsFormat.generate "traefik-static.yml" cfg.staticConfigOptions;
+        staticConfigFile = settingsFormat.generate "traefik-static.yml" (
+          recursiveUpdate cfg.staticConfigOptions {
+            providers.file.directory = "${dynamicConfDir}";
+          }
+        );
       in
       {
         enable = true;
