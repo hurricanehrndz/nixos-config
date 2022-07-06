@@ -9,6 +9,7 @@
     # Selection of sysadmin tools that can come in handy
     systemPackages = with pkgs; [
       dosfstools
+      git-crypt
       gptfdisk
       iputils
       parted
