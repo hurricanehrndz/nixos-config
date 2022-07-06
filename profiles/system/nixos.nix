@@ -11,6 +11,7 @@
       dosfstools
       gptfdisk
       iputils
+      parted
       usbutils
       utillinux
     ];
@@ -36,12 +37,12 @@
   programs = {
     bash = {
       shellAliases = {
-        l="exa -lh --group-directories-first -F --icons";
+        l = "exa -lh --group-directories-first -F --icons";
         la = "exa -aalhF --group-directories-first --icons";
         lt = "exa --tree --icons -d -a --ignore-glob '**/.git'";
         tm = "tmux new-session -A -s main";
-        type="type -a";
-        mkdir="mkdir -p";
+        type = "type -a";
+        mkdir = "mkdir -p";
       };
       # Enable starship
       promptInit = ''
