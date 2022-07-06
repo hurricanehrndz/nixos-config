@@ -193,6 +193,21 @@ in
 
   fileSystems = (mkFileSystems [ "parity1" "data1" "data2" "data3" ]) // {
     "/volumes/storage" = {
+      device = "/volumes/cache:/volumes/data*";
+      fsType = "fuse.mergerfs";
+      options = [
+        "nonempty"
+        "allow_other"
+        "use_ino"
+        "cache.files=off"
+        "moveonenospc=false"
+        "dropcacheonclose=true"
+        "minfreespace=80G"
+        "category.create=ff"
+        "fsname=cached_mergerfs"
+      ];
+    };
+    "/volumes/backing_storage" = {
       device = "/volumes/data*";
       fsType = "fuse.mergerfs";
       options = [
@@ -211,7 +226,7 @@ in
 
   system.activationScripts.installerCustom = ''
     mkdir -p /shares/public
-    mkdir -p /volumes/{parity1,data1,data2,data3,storage}
+    mkdir -p /volumes/{parity1,data1,data2,data3,storage,cache}
     mkdir -p /var/snapraid
   '';
 
