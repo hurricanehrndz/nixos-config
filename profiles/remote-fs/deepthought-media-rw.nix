@@ -14,6 +14,8 @@
         ''credentials=${config.age.secrets."deepthought-rw.creds".path}''
         "uid=1000"
         "gid=100"
+        "dir_mode=0775"
+        "file_mode=0664"
       ];
   };
 }
