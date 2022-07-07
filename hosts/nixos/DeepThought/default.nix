@@ -103,6 +103,7 @@ in
       enable = true;
       config = config.age.secrets."snapraid-runner.apprise.yaml".path;
     };
+    scrub.enable = true;
   };
 
   # Samba
