@@ -9,6 +9,9 @@
     extraPackages = with pkgs; [
       ripgrep
     ];
+    extraConfig = ''
+      lua require('hrndz.settings')
+    '';
     plugins = with pkgs.vimPlugins; [
       {
         plugin = tokyonight-nvim;
@@ -59,6 +62,13 @@
       plenary-nvim
       popup-nvim
       telescope-fzf-native-nvim
+      vim-polyglot
     ];
+  };
+  xdg.configFile = {
+    "nvim" = {
+      recursive = true;
+      source = ./config;
+    };
   };
 }
