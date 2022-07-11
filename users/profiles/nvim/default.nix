@@ -63,6 +63,20 @@
       popup-nvim
       telescope-fzf-native-nvim
       vim-polyglot
+      nvim-ts-rainbow
+      (nvim-treesitter.withPlugins (
+        plugins: with plugins; [
+          tree-sitter-bash
+          tree-sitter-javascript
+          tree-sitter-lua
+          tree-sitter-make
+          tree-sitter-markdown
+          tree-sitter-nix
+          tree-sitter-python
+          tree-sitter-typescript
+          tree-sitter-tsx
+        ]
+      ))
     ];
   };
   xdg.configFile = {
