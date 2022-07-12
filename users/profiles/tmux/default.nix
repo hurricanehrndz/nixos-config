@@ -7,6 +7,11 @@
     baseIndex = 1;
     keyMode = "vi";
     terminal = "screen-256color";
+    escapeTime = 10;
+    extraConfig = ''
+      set-option -sa terminal-overrides ',*256col*:RGB'
+      bind r source-file $HOME/.config/tmux/tmux.conf \; display "TMUX conf reloaded!"
+    '';
     plugins = with pkgs; [
       {
         plugin = tmuxPlugins.power-theme;
