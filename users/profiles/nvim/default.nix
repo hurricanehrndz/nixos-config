@@ -157,6 +157,15 @@
 
       }
 
+      # functionality
+      {
+        plugin = toggleterm-nvim;
+        type = "lua";
+        config = (
+          builtins.readFile ./config/lua/hrndz/plugins/toggleterm.lua
+        );
+      }
+
       # add completion
     ];
   };
