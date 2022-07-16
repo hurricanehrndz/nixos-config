@@ -20,3 +20,10 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
   group = term_open_group,
 })
+
+local Terminal = require("toggleterm.terminal").Terminal
+local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+
+function _LAZYGIT_TOGGLE()
+  lazygit:toggle()
+end

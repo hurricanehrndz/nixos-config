@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
 {
+
+  home.packages = with pkgs; [
+    lazygit
+  ];
+
   programs.neovim = {
     enable = true;
     vimdiffAlias = true;
