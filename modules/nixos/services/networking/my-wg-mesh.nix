@@ -52,14 +52,22 @@ in
           fi
 
           # otherwise authenticate with tailscale
-          ${tailscale}/bin/tailscale up -authkey $(cat ${cfg.authKeyFile})
+          ${tailscale}/bin/tailscale up -authkey $(cat ${cfg.authKeyFile}) --advertise-routes=172.28.250.0/23
         '';
       };
 
+
+      boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+      boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = 1;
       networking.firewall = {
         # enable the firewall
         enable = true;
+        checkReversePath = "loose";
 
+        extraCommands = ''
+          iptables --policy FORWARD DROP
+          iptables --policy INPUT DROP
+        '';
         # always allow traffic from your Tailscale network
         trustedInterfaces = [ "tailscale0" ];
 
