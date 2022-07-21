@@ -15,6 +15,8 @@ wo.wrap = false
 wo.colorcolumn = "80"
 
 -- >> edior options <<--
+-- global status line
+o.laststatus = 3
 -- cursor
 o.guicursor = ""
 -- abandon buffer when unloading
