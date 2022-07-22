@@ -1,4 +1,4 @@
-{  pkgs, ... }:
+{ pkgs, ... }:
 
 {
   programs.zsh = {
@@ -26,7 +26,7 @@
       }
     ];
     initExtraBeforeCompInit = ''
-      # Esc-S to insert sudo in front of command
+      # ^X^S to insert sudo in front of command
       function prepend-sudo { # Insert "sudo " at the beginning of the line
         if [[ $BUFFER != "sudo "* ]]; then
           BUFFER="sudo $BUFFER"; CURSOR+=5
@@ -34,9 +34,17 @@
       }
       zle -N prepend-sudo
 
-      # Note: requires vi key bindings in zsh!
-      bindkey -M vicmd '^Xs' prepend-sudo
-      bindkey -M viins '^Xs' prepend-sudo
+      setopt interactivecomments	# Allow comments inside commands
+      setopt autopushd		            # Maintain directories in a heap
+      setopt pushdignoredups          # Remove duplicates from directory heap
+      setopt pushdminus               # Invert + and - meanings
+      setopt autocd			              # Don't need to use `cd`
+      setopt longlistjobs             # Display PID when using jobs
+      setopt nobeep                   # Never beep
+      setopt noflowcontrol            # Disable flow control for Zsh, enable ^S
+
+      bindkey -M vicmd '^X^S' prepend-sudo
+      bindkey -M viins '^X^S' prepend-sudo
 
       autoload -U edit-command-line
       zle -N edit-command-line
