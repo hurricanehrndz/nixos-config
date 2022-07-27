@@ -4,7 +4,8 @@ require("toggleterm").setup({
   direction = 'float',
 })
 
-vim.env.GIT_EDITOR = "nvr -cc split --remote-wait"
+vim.env.GIT_EDITOR = "nvr --remote-tab-wait +'set bufhidden=wipe'"
+vim.env.VISUAL = "nvr --remote-tab-wait +'set bufhidden=wipe'"
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 local term_open_group = vim.api.nvim_create_augroup("HrndzTermOpen",
