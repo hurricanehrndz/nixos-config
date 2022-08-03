@@ -7,6 +7,14 @@
     neovim-remote
   ];
 
+  programs.zsh.initExtra = ''
+    if [[ -n "$NVIM" || -n "$NVIM_LISTEN_ADDRESS" ]]; then
+      alias vi="nvr -l"
+      alias vim="nvr -l"
+      alias nvim="nvr -l"
+    fi
+  '';
+
   programs.neovim = {
     enable = true;
     vimdiffAlias = true;
