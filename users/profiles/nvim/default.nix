@@ -24,7 +24,7 @@
       ripgrep
     ];
     extraConfig = ''
-      lua require('hrndz.settings')
+      lua require("hrndz.settings")
     '';
     plugins = with pkgs.vimPlugins; [
       # Theme
