@@ -33,6 +33,9 @@
     enable = true;
     passwordAuthentication = false;
     permitRootLogin = lib.mkOverride 500 "no";
+    extraConfig = ''
+      StreamLocalBindUnlink yes
+    '';
   };
 
   programs = {
