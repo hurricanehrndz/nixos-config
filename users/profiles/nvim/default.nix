@@ -7,6 +7,11 @@
     neovim-remote
   ];
 
+  programs.lazygit = {
+    enable = true;
+    settings = { };
+  };
+
   programs.zsh.initExtra = ''
     if [[ -n "$NVIM" || -n "$NVIM_LISTEN_ADDRESS" ]]; then
       alias vi="nvr -l"
