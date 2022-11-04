@@ -3,7 +3,7 @@
 {
   ### root password is empty by default ###
   imports = (with suites;
-    base ++ mediaserver ++ services-host) ++ [ ./hardware-configuration.nix ];
+    base ++ services-host) ++ [ ./hardware-configuration.nix ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -21,8 +21,6 @@
     };
     # needs to get updated on recreating a system (exprie every 6 monts)
     "tailscale.authkey".file = "${self}/secrets/services/tailscale/authkey.age";
-    "deepthought-rw.creds".file = "${self}/secrets/remote-fs/deepthought-rw.creds.age";
-    "grabber.ini".file = "${self}/secrets/services/data-access/grabber.ini.age";
   };
 
   services = {
@@ -31,10 +29,6 @@
       authKeyFile = config.age.secrets."tailscale.authkey".path;
     };
 
-    data-access = {
-      enable = true;
-      grabber.initConfigFile = config.age.secrets."grabber.ini".path;
-    };
   };
 
   networking.domain = "hrndz.ca";
