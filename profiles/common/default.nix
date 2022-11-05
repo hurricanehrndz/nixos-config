@@ -33,6 +33,7 @@ in
       bottom
       coreutils
       curl
+      ddrescue
       direnv
       dnsutils
       exa
