@@ -24,7 +24,5 @@ in
   "remote-fs/deepthought-rw.creds.age".publicKeys = lucyKeys;
   "services/traefik/env.age".publicKeys = lucyKeys;
 
-  "hosts/DeepThought/ssh_host_ed25519_key.age".publicKeys = deepKeys;
-  "hosts/DeepThought/ssh_host_ed25519_key.pub.age".publicKeys = deepKeys;
   "services/snapraid-runner/apprise.yaml.age".publicKeys = deepKeys;
 }
