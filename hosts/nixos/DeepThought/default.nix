@@ -16,14 +16,9 @@ in
 
   imports = (with suites; base) ++ [ ./hardware-configuration.nix ];
 
-  # legacy boot
-  boot.loader.grub = {
-    enable = true;
-    version = 2;
-    device = "/dev/disk/by-id/usb-TO_Exter_nal_USB_3.0_201503310007F-0:0";
-  };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 1;
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModulePackages = with config.boot.kernelPackages; [ it87 ];
   boot.kernelModules = [ "coretemp" "it87" ];
