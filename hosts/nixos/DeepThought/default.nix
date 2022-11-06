@@ -30,16 +30,6 @@ in
 
   # secrets
   age.secrets = {
-    "hosts/DeepThought/ssh_host_ed25519_key" = {
-      file = "${self}/secrets/hosts/DeepThought/ssh_host_ed25519_key.age";
-      path = "/etc/ssh/ssh_host_ed25519_key";
-      symlink = false;
-    };
-    "hosts/DeepThought/ssh_host_ed25519_key.pub" = {
-      file = "${self}/secrets/hosts/DeepThought/ssh_host_ed25519_key.pub.age";
-      path = "/etc/ssh/ssh_host_ed25519_key.pub";
-      symlink = false;
-    };
     "snapraid-runner.apprise.yaml".file = "${self}/secrets/services/snapraid-runner/apprise.yaml.age";
   };
 
