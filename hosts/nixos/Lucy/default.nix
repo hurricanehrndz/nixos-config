@@ -8,16 +8,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   age.secrets = {
-    "hosts/lucy/ssh_host_ed25519_key" = {
-      file = "${self}/secrets/hosts/lucy/ssh_host_ed25519_key.age";
-      path = "/etc/ssh/ssh_host_ed25519_key";
-      symlink = false;
-    };
-    "hosts/lucy/ssh_host_ed25519_key.pub" = {
-      file = "${self}/secrets/hosts/lucy/ssh_host_ed25519_key.pub.age";
-      path = "/etc/ssh/ssh_host_ed25519_key.pub";
-      symlink = false;
-    };
     # needs to get updated on recreating a system (exprie every 6 monts)
     "tailscale.authkey".file = "${self}/secrets/services/tailscale/authkey.age";
   };
