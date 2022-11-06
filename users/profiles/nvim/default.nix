@@ -18,6 +18,7 @@
       alias vim="nvr -l"
       alias nvim="nvr -l"
     fi
+    alias v="nvim"
   '';
 
   programs.neovim = {
