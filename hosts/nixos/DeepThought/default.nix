@@ -21,7 +21,7 @@ in
   boot.loader.timeout = 1;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModulePackages = with config.boot.kernelPackages; [ it87 ];
-  boot.kernelModules = [ "coretemp" "it87" ];
+  boot.kernelModules = [ "coretemp" ];
 
   # secrets
   age.secrets = {
@@ -156,26 +156,6 @@ in
       '';
     };
   };
-
-  # Terramaster's fan is connected to a case fan header.
-  # It doesn't spin up under load so I set up fancontrol to take care of this.
-  # source: https://github.com/arnarg/config/blob/master/machines/terramaster/configuration.nix#L52-L68
-  hardware.fancontrol.enable = true;
-  # Because of the order in boot.kernelModules coretemp is always loaded before it87.
-  # This makes hwmon0 coretemp and hwmon1 it8613e (acpitz is hwmon2).
-  # This seems to be consistent between reboots.
-  hardware.fancontrol.config = ''
-    INTERVAL=10
-    DEVPATH=hwmon1=devices/platform/it87.2608
-    DEVNAME=hwmon1=it8772
-    FCTEMPS=hwmon1/pwm3=hwmon1/temp2_input
-    FCFANS= hwmon1/pwm3=hwmon1/fan3_input
-    MINTEMP=hwmon1/pwm3=30
-    MAXTEMP=hwmon1/pwm3=60
-    MINSTART=hwmon1/pwm3=150
-    MINSTOP=hwmon1/pwm3=20
-    MINPWM=hwmon1/pwm3=20
-  '';
 
   fileSystems = (mkFileSystems [ "parity1" "data1" "data2" "data3" ]) // {
     "/volumes/storage" = {
