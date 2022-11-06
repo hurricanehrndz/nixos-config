@@ -9,6 +9,7 @@ let
     nixUnstable
     nixpkgs-fmt
     nvfetcher-bin
+    rage
     ;
 
   hooks = import ./hooks;
@@ -29,6 +30,7 @@ in
     (devos nixUnstable)
     (devos agenix)
     (devos inputs.deploy.packages.${pkgs.system}.deploy-rs)
+    (devos rage)
 
     {
       category = "devos";
