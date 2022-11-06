@@ -6,7 +6,7 @@
     shortcut = "a";
     baseIndex = 1;
     keyMode = "vi";
-    terminal = "screen-256color";
+    terminal = "tmux-256color";
     escapeTime = 10;
     extraConfig = ''
       set-option -sa terminal-overrides ',*256col*:RGB'
