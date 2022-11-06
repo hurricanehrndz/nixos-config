@@ -40,6 +40,11 @@
       enable = true;
     };
 
+    signing = {
+      key = "0D2565B7C6058A69";
+      signByDefault = true;
+    };
+
     extraConfig = {
       core = {
         whitespace = "-indent-with-non-tab,trailing-space,cr-at-eol";
