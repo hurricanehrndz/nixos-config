@@ -27,7 +27,6 @@ in
   # secrets
   age.secrets = {
     "snapraid-runner.apprise.yaml".file = "${self}/secrets/services/snapraid-runner/apprise.yaml.age";
-    "grabber.ini".file = "${self}/secrets/services/data-access/grabber.ini.age";
   };
 
   # List packages installed in system profile.
@@ -43,7 +42,6 @@ in
 
   services.data-access = {
     enable = true;
-    grabber.initConfigFile = config.age.secrets."grabber.ini".path;
   };
 
   # enable snapraid
