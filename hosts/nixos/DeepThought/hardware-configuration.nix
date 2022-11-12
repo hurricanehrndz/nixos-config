@@ -18,56 +18,56 @@
     {
       device = "/dev/disk/by-uuid/c92e4a99-1f39-4d9b-b22b-03e656189ba5";
       fsType = "btrfs";
-      options = [ "subvol=@" ];
+      options = [ "subvol=@" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/home" =
     {
       device = "/dev/disk/by-uuid/c92e4a99-1f39-4d9b-b22b-03e656189ba5";
       fsType = "btrfs";
-      options = [ "subvol=@home" ];
+      options = [ "subvol=@home" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/var" =
     {
       device = "/dev/disk/by-uuid/c92e4a99-1f39-4d9b-b22b-03e656189ba5";
       fsType = "btrfs";
-      options = [ "subvol=@var" ];
+      options = [ "subvol=@var" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/nix" =
     {
       device = "/dev/disk/by-uuid/c92e4a99-1f39-4d9b-b22b-03e656189ba5";
       fsType = "btrfs";
-      options = [ "subvol=@nix" ];
+      options = [ "subvol=@nix" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/tmp" =
     {
       device = "/dev/disk/by-uuid/c92e4a99-1f39-4d9b-b22b-03e656189ba5";
       fsType = "btrfs";
-      options = [ "subvol=@tmp" ];
+      options = [ "subvol=@tmp" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/srv" =
     {
       device = "/dev/disk/by-uuid/c92e4a99-1f39-4d9b-b22b-03e656189ba5";
       fsType = "btrfs";
-      options = [ "subvol=@srv" ];
+      options = [ "subvol=@srv" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/opt" =
     {
       device = "/dev/disk/by-uuid/c92e4a99-1f39-4d9b-b22b-03e656189ba5";
       fsType = "btrfs";
-      options = [ "subvol=@opt" ];
+      options = [ "subvol=@opt" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/root" =
     {
       device = "/dev/disk/by-uuid/c92e4a99-1f39-4d9b-b22b-03e656189ba5";
       fsType = "btrfs";
-      options = [ "subvol=@root" ];
+      options = [ "subvol=@root" "compress=zstd" "noatime" ];
     };
 
   fileSystems."/boot" =
