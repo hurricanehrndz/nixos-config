@@ -18,9 +18,9 @@ let
 in
 {
   "services/tailscale/authkey.age".publicKeys = lucyKeys;
-  "services/data-access/grabber.ini.age".publicKeys = lucyKeys;
   "remote-fs/deepthought-rw.creds.age".publicKeys = lucyKeys;
-  "services/traefik/env.age".publicKeys = lucyKeys;
 
   "services/snapraid-runner/apprise.yaml.age".publicKeys = deepKeys;
+  "services/data-access/grabber.ini.age".publicKeys = deepKeys;
+  "services/traefik/env.age".publicKeys = deepKeys;
 }
