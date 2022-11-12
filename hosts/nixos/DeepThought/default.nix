@@ -14,7 +14,7 @@ let
 in
 {
 
-  imports = (with suites; base ++ services-host ++ remote-monitoring) ++ [ ./hardware-configuration.nix ];
+  imports = (with suites; base ++ services-host ++ mediaserver ++ remote-monitoring) ++ [ ./hardware-configuration.nix ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
