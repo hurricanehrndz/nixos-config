@@ -16,6 +16,7 @@
     digga.inputs.nixpkgs.follows = "nixpkgs";
     digga.inputs.darwin.follows = "darwin";
     digga.inputs.nixlib.follows = "nixpkgs";
+    digga.inputs.nixpkgs-unstable.follows = "nixos-unstable";
     digga.inputs.home-manager.follows = "home-manager";
     digga.inputs.deploy.follows = "deploy";
 
@@ -135,6 +136,7 @@
             base = [ common system.nixos networking.dhcp-all users.hurricane ];
             mediaserver = [ plex ];
             services-host = [ traefik ];
+            remote-monitoring = [ netdata ];
           };
         };
       };
