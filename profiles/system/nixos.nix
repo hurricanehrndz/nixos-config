@@ -15,6 +15,7 @@
       parted
       usbutils
       utillinux
+      pciutils
     ];
 
   };
@@ -39,6 +40,7 @@
   };
 
   programs = {
+    command-not-found.enable = true;
     bash = {
       shellAliases = {
         l = "exa -lh --group-directories-first -F --icons";
