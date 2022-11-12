@@ -14,7 +14,7 @@ let
 in
 {
 
-  imports = (with suites; base ++ remote-monitoring) ++ [ ./hardware-configuration.nix ];
+  imports = (with suites; base ++ services-host ++ remote-monitoring) ++ [ ./hardware-configuration.nix ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -22,10 +22,12 @@ in
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModulePackages = with config.boot.kernelPackages; [ it87 ];
   boot.kernelModules = [ "coretemp" ];
+  networking.domain = "hrndz.ca";
 
   # secrets
   age.secrets = {
     "snapraid-runner.apprise.yaml".file = "${self}/secrets/services/snapraid-runner/apprise.yaml.age";
+    "grabber.ini".file = "${self}/secrets/services/data-access/grabber.ini.age";
   };
 
   # List packages installed in system profile.
@@ -37,6 +39,11 @@ in
       parted
       smartmontools
     ];
+  };
+
+  services.data-access = {
+    enable = true;
+    grabber.initConfigFile = config.age.secrets."grabber.ini".path;
   };
 
   # enable snapraid
@@ -188,7 +195,7 @@ in
     scrutiny = {
       image = "ghcr.io/analogj/scrutiny:master-omnibus";
       ports = [
-        "1080:8080"
+        "127.0.0.1:1080:1080"
       ];
       volumes = [
         "/opt/scrutiny/config:/opt/scrutiny/config"
@@ -207,6 +214,30 @@ in
       ];
     };
   };
+
+  services.myTraefikProxy.dynamicConfigOptions."scrutiny" = {
+    enable = true;
+    value = {
+      http.services = {
+        "scrutiny" = {
+          loadbalancer.servers = [
+            { url = "http://localhost:1080/"; }
+          ];
+        };
+      };
+      http.routers = {
+        "scrutiny" = with config.networking; {
+          rule = "Host(`${hostName}.${domain}`) && PathPrefix(`/scrutiny`)";
+          entryPoints = [
+            "websecure"
+          ];
+          service = "scrutiny";
+          tls.certResolver = "dnsResolver";
+        };
+      };
+    };
+  };
+
   # systemd.services.podman-scrutiny.serviceConfig.User = "hurricane";
   networking = {
     nat = {
@@ -214,7 +245,6 @@ in
       internalInterfaces = [ "ve-+" ];
       externalInterface = "enp0s31f6";
     };
-    firewall.allowedTCPPorts = [ 1080 ];
   };
 
   fileSystems = (mkFileSystems [ "parity" "data1" "data2" "data3" "data4" ]) // {
