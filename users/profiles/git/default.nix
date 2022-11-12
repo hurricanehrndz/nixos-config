@@ -2,7 +2,7 @@
   programs.git = {
     enable = true;
     userName = "Carlos Hernandez";
-    userEmail = "hurricane@hrndz.ca";
+    userEmail = "carlos@hrndz.ca";
     extraConfig = {
       pull.ff = "only";
       safe.directory = "/etc/nixos";
