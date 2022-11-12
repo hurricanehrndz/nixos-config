@@ -14,7 +14,7 @@ let
 in
 {
 
-  imports = (with suites; base) ++ [ ./hardware-configuration.nix ];
+  imports = (with suites; base ++ remote-monitoring) ++ [ ./hardware-configuration.nix ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -35,6 +35,7 @@ in
       mergerfs
       mergerfs-tools
       parted
+      smartmontools
     ];
   };
 
@@ -51,14 +52,16 @@ in
       "/volumes/data1/snapraid.content"
       "/volumes/data2/snapraid.content"
       "/volumes/data3/snapraid.content"
+      "/volumes/data4/snapraid.content"
     ];
     dataDisks = {
       d1 = "/volumes/data1";
       d2 = "/volumes/data2";
       d3 = "/volumes/data3";
+      d4 = "/volumes/data4";
     };
     parityFiles = [
-      "/volumes/parity1/snapraid.parity"
+      "/volumes/parity/snapraid.parity"
     ];
     exclude = [
       "*.bak"
@@ -88,7 +91,30 @@ in
       enable = true;
       config = config.age.secrets."snapraid-runner.apprise.yaml".path;
     };
-    scrub.enable = true;
+    scrub.enabled = true;
+    snapraid.touch = true;
+  };
+
+  # smart monitoring
+  services.smartd = {
+    enable = true;
+    defaults.monitored = "-a -o on -S on -T permissive -R 5! -W 0,46 -n never,q -s (S/../.././02|L/../../7/04)";
+    devices = [
+      {
+        device = "/dev/disk/by-id/ata-ADATA_SU800_2I5020042202";
+      }
+      {
+        device = "/dev/disk/by-id/ata-WDC_WD120EFBX-68B0EN0_5QKDEPLB";
+      }
+      {
+        device = "/dev/disk/by-id/ata-ST12000VN0008-2PH103_ZTN18K65";
+        options = "-a -o on -S on -T permissive -v 1,raw48:54 -v 7,raw48:54 -R 5! -W 0,46 -n never,q -s (S/../.././02|L/../../7/04)";
+      }
+      {
+        device = "/dev/nvme0n1";
+        options = "-a -o on -S on -T permissive -W 0,75 -n never,q -s (S/../.././02|L/../../7/04)";
+      }
+    ];
   };
 
   # Samba
@@ -98,6 +124,7 @@ in
     securityType = "user";
     extraConfig = ''
       workgroup = WORKGROUP
+      smbd profiling level = on
       server string = DeepThought
       server role = standalone server
       guest account = nobody
@@ -157,7 +184,45 @@ in
     };
   };
 
-  fileSystems = (mkFileSystems [ "parity1" "data1" "data2" "data3" ]) // {
+  virtualisation.oci-containers.containers = {
+    scrutiny = {
+      image = "ghcr.io/analogj/scrutiny:master-omnibus";
+      ports = [
+        "1080:8080"
+      ];
+      volumes = [
+        "/opt/scrutiny/config:/opt/scrutiny/config"
+        "/opt/scrutiny/influxdb:/opt/scrutiny/influxdb"
+        "/run/udev:/run/udev:ro"
+      ];
+      extraOptions = [
+        "--cap-add=SYS_RAWIO"
+        "--device=/dev/sda"
+        "--device=/dev/sdb"
+        "--device=/dev/sdc"
+        "--device=/dev/sdd"
+        "--device=/dev/sde"
+        "--device=/dev/sdf"
+        "--device=/dev/nvme0n1"
+      ];
+    };
+  };
+  # systemd.services.podman-scrutiny.serviceConfig.User = "hurricane";
+  networking = {
+    nat = {
+      enable = true;
+      internalInterfaces = [ "ve-+" ];
+      externalInterface = "enp0s31f6";
+    };
+    firewall.allowedTCPPorts = [ 1080 ];
+  };
+
+  fileSystems = (mkFileSystems [ "parity" "data1" "data2" "data3" "data4" ]) // {
+    "/volumes/cache" = {
+      device = "/dev/disk/by-label/cache";
+      fsType = "btrfs";
+      options = [ "compress=zstd" "noatime" ];
+    };
     "/volumes/storage" = {
       device = "/volumes/cache:/volumes/data*";
       fsType = "fuse.mergerfs";
@@ -192,7 +257,7 @@ in
 
   system.activationScripts.installerCustom = ''
     mkdir -p /shares/public
-    mkdir -p /volumes/{parity1,data1,data2,data3,storage,cache}
+    mkdir -p /volumes/{parity,data1,data2,data3,data4,storage,cache}
     mkdir -p /var/snapraid
   '';
 
