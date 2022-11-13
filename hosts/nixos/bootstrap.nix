@@ -8,7 +8,6 @@
     profiles.system.nixos
     profiles.users.root # make sure to configure ssh keys
     profiles.users.hurricane
-    "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -17,7 +16,6 @@
   fileSystems."/" = { device = "/dev/disk/by-label/nixos"; };
 
 
-  isoImage.isoBaseName = "bootstrap-nixos";
   isoImage.contents = [{
     source = self;
     target = "/etc/nixos/";
