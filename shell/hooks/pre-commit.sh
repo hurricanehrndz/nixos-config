@@ -16,6 +16,12 @@ all_files=($($diff))
 # Format staged nix files.
 if [[ -n "${nix_files[@]}" ]]; then
   nixpkgs-fmt --check "${nix_files[@]}"
+  if [[ $? != '0' ]]; then
+    printf "%b\n" \
+        "\nCode needs formatting" \
+        "Review the output and commit your fixes" >&2
+    exit 1
+  fi
 fi
 
 # check editorconfig
