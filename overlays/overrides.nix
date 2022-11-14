@@ -14,10 +14,9 @@ channels: final: prev: {
     signal-desktop
     starship
     deploy-rs
-    neovim-unwrapped
     neovimUtils
     neovim-remote
-    "vimPlugins.tokyonight-nvim"
+    vimPlugins
     ;
 
   haskellPackages = prev.haskellPackages.override

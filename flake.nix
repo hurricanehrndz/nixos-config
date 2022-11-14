@@ -52,6 +52,20 @@
     naersk.url = "github:nmattia/naersk";
     naersk.inputs.nixpkgs.follows = "nixpkgs";
 
+    # neovim
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
+    gitsigns-src = {
+      url = "github:lewis6991/gitsigns.nvim";
+      flake = false;
+    };
+    nvim-colorizer-src = {
+      url = "github:NvChad/nvim-colorizer.lua";
+      flake = false;
+    };
+
     nixpkgs.follows = "nixos-stable";
   };
 
@@ -69,6 +83,7 @@
     , nur
     , nvfetcher
     , snapraid-runner
+    , neovim-nightly
     , ...
     } @ inputs:
     digga.lib.mkFlake {
@@ -99,6 +114,7 @@
         })
 
         agenix.overlay
+        neovim-nightly.overlay
         nvfetcher.overlay
         snapraid-runner.overlays.snapraid-runner
 
