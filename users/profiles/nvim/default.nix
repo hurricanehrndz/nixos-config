@@ -120,8 +120,18 @@ in
           require("hrndz.plugins.toggleterm")
         '';
       }
+      # comment
+      {
+        plugin = comment-nvim;
+        type = "lua";
+        config = ''
+          require("hrndz.plugins.comment")
+        '';
+      }
 
       # add completion
+
+
     ];
   };
   xdg.configFile = {
