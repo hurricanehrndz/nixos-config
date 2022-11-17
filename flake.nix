@@ -65,6 +65,10 @@
       url = "github:NvChad/nvim-colorizer.lua";
       flake = false;
     };
+    nvim-window-src = {
+      url = "gitlab:yorickpeterse/nvim-window";
+      flake = false;
+    };
 
     nixpkgs.follows = "nixos-stable";
   };

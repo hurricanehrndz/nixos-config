@@ -39,100 +39,114 @@ in
     extraConfig = ''
       lua require("hrndz.options")
     '';
-    plugins = with pkgs.vimPlugins; [
-      # Theme
-      {
-        plugin = tokyonight-nvim;
-        type = "lua";
-        config = ''
-          require("hrndz.plugins.tokyonight")
-        '';
-      }
-      {
-        plugin = indent-blankline-nvim;
-        type = "lua";
-        config = ''
-          require("hrndz.plugins.indentblankline")
-        '';
-      }
-      {
-        plugin = (withSrc gitsigns-nvim inputs.gitsigns-src);
-        type = "lua";
-        config = ''
-          require("hrndz.plugins.gitsigns")
-        '';
-      }
-      {
-        plugin = (withSrc nvim-colorizer-lua inputs.nvim-colorizer-src);
-        type = "lua";
-        config = ''
-          colorizer = require("colorizer")
-          colorizer.setup()
-        '';
-      }
-      {
-        plugin = nvim-web-devicons;
-        type = "lua";
-        config = ''
-          local devicons = require("nvim-web-devicons")
-          devicons.setup({ default = true })
-        '';
-      }
-      # Fuzzy finder
-      {
-        plugin = telescope-nvim;
-        type = "lua";
-        config = ''
-          require("hrndz.plugins.telescope")
-        '';
-      }
-      plenary-nvim
-      popup-nvim
-      telescope-fzf-native-nvim
+    plugins = with pkgs.vimPlugins;
+      let
+        nvim-window = pkgs.vimUtils.buildVimPluginFrom2Nix {
+          pname = "nvim-window";
+          src = inputs.nvim-window-src;
+          version = "master";
+        };
+      in
+      [
+        # Theme
+        {
+          plugin = tokyonight-nvim;
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.tokyonight")
+          '';
+        }
+        {
+          plugin = indent-blankline-nvim;
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.indentblankline")
+          '';
+        }
+        {
+          plugin = (withSrc gitsigns-nvim inputs.gitsigns-src);
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.gitsigns")
+          '';
+        }
+        {
+          plugin = (withSrc nvim-colorizer-lua inputs.nvim-colorizer-src);
+          type = "lua";
+          config = ''
+            colorizer = require("colorizer")
+            colorizer.setup()
+          '';
+        }
+        {
+          plugin = nvim-web-devicons;
+          type = "lua";
+          config = ''
+            local devicons = require("nvim-web-devicons")
+            devicons.setup({ default = true })
+          '';
+        }
+        # Fuzzy finder
+        {
+          plugin = telescope-nvim;
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.telescope")
+          '';
+        }
+        plenary-nvim
+        popup-nvim
+        telescope-fzf-native-nvim
 
-      # add some syntax highlighting
-      nvim-ts-rainbow
-      {
-        plugin = (nvim-treesitter.withPlugins (
-          plugins: with plugins; [
-            tree-sitter-bash
-            tree-sitter-javascript
-            tree-sitter-lua
-            tree-sitter-make
-            tree-sitter-markdown
-            tree-sitter-nix
-            tree-sitter-python
-            tree-sitter-typescript
-            tree-sitter-tsx
-          ]
-        ));
-        type = "lua";
-        config = ''
-          require("hrndz.plugins.treesitter")
-        '';
-      }
+        # add some syntax highlighting
+        nvim-ts-rainbow
+        {
+          plugin = (nvim-treesitter.withPlugins (
+            plugins: with plugins; [
+              tree-sitter-bash
+              tree-sitter-javascript
+              tree-sitter-lua
+              tree-sitter-make
+              tree-sitter-markdown
+              tree-sitter-nix
+              tree-sitter-python
+              tree-sitter-typescript
+              tree-sitter-tsx
+            ]
+          ));
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.treesitter")
+          '';
+        }
 
-      # functionality
-      {
-        plugin = toggleterm-nvim;
-        type = "lua";
-        config = ''
-          require("hrndz.plugins.toggleterm")
-        '';
-      }
-      # comment
-      {
-        plugin = comment-nvim;
-        type = "lua";
-        config = ''
-          require("hrndz.plugins.comment")
-        '';
-      }
+        # functionality
+        {
+          plugin = toggleterm-nvim;
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.toggleterm")
+          '';
+        }
+        # comment
+        {
+          plugin = comment-nvim;
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.comment")
+          '';
+        }
+        {
+          plugin = nvim-window;
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.winpicker")
+          '';
+        }
+        # add completion
 
-      # add completion
 
-
-    ];
+      ];
   };
   xdg.configFile = {
     "nvim" = {

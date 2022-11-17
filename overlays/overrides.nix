@@ -19,6 +19,7 @@ channels: final: prev: {
     vimPlugins
     ;
 
+  # nvim-window = prev.vimUtils.buildVimPluginFrom2Nix { pname = "nvim-window"; src = inputs.nvim-window-src; };
   haskellPackages = prev.haskellPackages.override
     (old: {
       overrides = prev.lib.composeExtensions (old.overrides or (_: _: { })) (hfinal: hprev:
