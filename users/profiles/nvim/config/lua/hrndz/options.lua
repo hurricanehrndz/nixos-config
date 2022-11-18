@@ -61,7 +61,7 @@ local options = {
   shiftround = true,
 
   -- >> buffer-scoped options <<--
-  shiftwidth = 4, -- smarttab enable by default, ts sts ignored,
+  shiftwidth = 2, -- smarttab enable by default, ts sts ignored,
   expandtab = true,
   smartindent = true,
 }
