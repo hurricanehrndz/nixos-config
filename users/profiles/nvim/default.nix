@@ -119,7 +119,6 @@ in
             require("hrndz.plugins.treesitter")
           '';
         }
-
         # functionality
         {
           plugin = toggleterm-nvim;
@@ -141,6 +140,14 @@ in
           type = "lua";
           config = ''
             require("hrndz.plugins.winpicker")
+          '';
+        }
+        # which key did I just hit
+        {
+          plugin = which-key-nvim;
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.whichkey")
           '';
         }
         # add completion
