@@ -70,6 +70,12 @@
       flake = false;
     };
 
+    # tmux
+    extrakto-src = {
+      url = "github:laktak/extrakto";
+      flake = false;
+    };
+
     nixpkgs.follows = "nixos-stable";
   };
 

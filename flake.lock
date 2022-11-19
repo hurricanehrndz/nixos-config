@@ -122,6 +122,22 @@
         "type": "github"
       }
     },
+    "extrakto-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1667462369,
+        "narHash": "sha256-BfQkVxVwT+hjb2T13H1EPKXS+W5FIJyQkR+Iz9079FU=",
+        "owner": "laktak",
+        "repo": "extrakto",
+        "rev": "4179acea28f69853fda9ab15c7564cd73757856c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "laktak",
+        "repo": "extrakto",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -542,6 +558,7 @@
         "darwin": "darwin",
         "deploy": "deploy",
         "digga": "digga",
+        "extrakto-src": "extrakto-src",
         "gitsigns-src": "gitsigns-src",
         "home-manager": "home-manager",
         "naersk": "naersk",

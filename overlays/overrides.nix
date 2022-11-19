@@ -13,13 +13,14 @@ channels: final: prev: {
     qutebrowser
     signal-desktop
     starship
+    tmux
+    tmuxPlugins
     deploy-rs
     neovimUtils
     neovim-remote
     vimPlugins
     ;
 
-  # nvim-window = prev.vimUtils.buildVimPluginFrom2Nix { pname = "nvim-window"; src = inputs.nvim-window-src; };
   haskellPackages = prev.haskellPackages.override
     (old: {
       overrides = prev.lib.composeExtensions (old.overrides or (_: _: { })) (hfinal: hprev:
