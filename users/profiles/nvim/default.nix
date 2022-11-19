@@ -37,10 +37,10 @@ in
       ripgrep
     ];
     extraConfig = ''
-      // Sensible defaults - mine
+      " Sensible defaults - mine
       lua require("hrndz.options")
 
-      // Key mappings
+      " Key mappings
       lua require("hrndz.keymaps")
     '';
     plugins = with pkgs.vimPlugins;
