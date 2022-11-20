@@ -154,6 +154,14 @@ in
             require("hrndz.plugins.whichkey")
           '';
         }
+        # what's did I do wrong
+        {
+          plugin = trouble-nvim;
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.trouble")
+          '';
+        }
         # add completion
 
 
