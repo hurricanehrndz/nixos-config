@@ -163,8 +163,28 @@ in
           '';
         }
         # add completion
+        {
+          plugin = nvim-cmp;
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.completion")
+          '';
+        }
+        nvim-lspconfig
+        cmp-nvim-lsp
+        cmp-nvim-lua
+        cmp-path
+        cmp-buffer
+        cmp-cmdline
 
+        # snippets
+        luasnip
+        cmp_luasnip
+        friendly-snippets
+        vim-snippets
 
+        # pictograms
+        lspkind-nvim
       ];
   };
   xdg.configFile = {
