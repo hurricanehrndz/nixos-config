@@ -118,6 +118,7 @@ in
               tree-sitter-python
               tree-sitter-typescript
               tree-sitter-tsx
+              tree-sitter-help
             ]
           ));
           type = "lua";
