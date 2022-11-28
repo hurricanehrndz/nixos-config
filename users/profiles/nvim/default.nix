@@ -35,6 +35,8 @@ in
       tree-sitter
       gcc
       ripgrep
+      rnix-lsp
+      sumneko-lua-language-server
     ];
     extraConfig = ''
       " Sensible defaults - mine
@@ -170,7 +172,6 @@ in
             require("hrndz.plugins.completion")
           '';
         }
-        nvim-lspconfig
         cmp-nvim-lsp
         cmp-nvim-lua
         cmp-path
@@ -182,6 +183,18 @@ in
         cmp_luasnip
         friendly-snippets
         vim-snippets
+
+        # add lsp config
+        {
+          plugin = nvim-lspconfig;
+          type = "lua";
+          config = ''
+            require("hrndz.lsp")
+          '';
+        }
+        neodev-nvim
+
+
 
         # pictograms
         lspkind-nvim
