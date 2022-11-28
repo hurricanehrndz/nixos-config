@@ -161,6 +161,7 @@
           suites = with profiles; rec {
             base = [ common system.nixos networking.dhcp-all users.hurricane ];
             mediaserver = [ plex ];
+            hardware-accel = [ hardware.opengl ];
             services-host = [ traefik ];
             remote-monitoring = [ netdata ];
           };

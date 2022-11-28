@@ -2,7 +2,7 @@
 
 {
   ### root password is empty by default ###
-  imports = (with suites; base) ++ [ ./hardware-configuration.nix ];
+  imports = (with suites; base ++ hardware-accel) ++ [ ./hardware-configuration.nix ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
