@@ -126,6 +126,7 @@
         agenix.overlay
         neovim-nightly.overlay
         nvfetcher.overlay
+        nur.overlay
         snapraid-runner.overlays.snapraid-runner
 
         (import ./pkgs)
@@ -139,13 +140,22 @@
             (digga.lib.importExportableModules ./modules/common)
             (digga.lib.importExportableModules ./modules/nixos)
           ];
-          modules = [
-            { lib.our = self.lib; }
-            digga.nixosModules.nixConfig
-            home-manager.nixosModules.home-manager
-            agenix.nixosModules.age
-            snapraid-runner.nixosModules.snapraid-runner
-          ];
+          modules =
+            let
+              nur-modules = import nur {
+                nurpkgs = nixpkgs.legacyPackages.x86_64-linux;
+                pkgs = nixpkgs.legacyPackages.x86_64-linux;
+              };
+            in
+            [
+              { lib.our = self.lib; }
+              digga.nixosModules.nixConfig
+              home-manager.nixosModules.home-manager
+              agenix.nixosModules.age
+              nur.nixosModules.nur
+              snapraid-runner.nixosModules.snapraid-runner
+              { imports = [ nur-modules.repos.dukzcry.modules.cockpit ]; }
+            ];
         };
 
         imports = [ (digga.lib.importHosts ./hosts/nixos) ];
