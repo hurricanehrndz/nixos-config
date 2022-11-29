@@ -1,5 +1,8 @@
-{ suites, self, config, ... }:
+{ pkgs, suites, self, config, ... }:
 
+let
+  authkeyFile = "${self}/secrets/services/tailscale/authkey.age";
+in
 {
   ### root password is empty by default ###
   imports = (with suites; base ++ hardware-accel) ++ [ ./hardware-configuration.nix ];
@@ -9,9 +12,19 @@
 
   age.secrets = {
     # needs to get updated on recreating a system (exprie every 6 monts)
-    "tailscale.authkey".file = "${self}/secrets/services/tailscale/authkey.age";
+    "tailscale.authkey".file = authkeyFile;
   };
 
+  boot.kernelModules = [ "kvm-amd" "kvm-intel" ];
+  virtualisation.libvirtd.enable = true;
+  # environment = {
+  #   systemPackages = with pkgs; [
+  #     osinfo-db
+  #     libosinfo
+  #     osinfo-db-tools
+  #   ];
+  # };
+  #
   services = {
     myWgMesh = {
       enable = true;
