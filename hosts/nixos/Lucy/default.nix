@@ -17,14 +17,12 @@ in
 
   boot.kernelModules = [ "kvm-amd" "kvm-intel" ];
   virtualisation.libvirtd.enable = true;
-  # environment = {
-  #   systemPackages = with pkgs; [
-  #     osinfo-db
-  #     libosinfo
-  #     osinfo-db-tools
-  #   ];
-  # };
-  #
+  environment = {
+    systemPackages = with pkgs; [
+      virt-manager
+    ];
+  };
+
   services = {
     myWgMesh = {
       enable = true;

@@ -57,5 +57,8 @@
     glb = "git log --topo-order --pretty=format:'%C(green)%h%C(reset) %s%n%C(blue)(%ar by %an)%C(red)%d%C(reset)%n'";
     glg = "git log --topo-order --all --graph --pretty=format:'%C(green)%h%C(reset) %s%C(red)%d %C(reset)%C(blue)Sig:%G?%C(reset)%n'";
 
+    # virsh
+    virsh = "virsh --connect='qemu:///system'";
+    virt-install = "virt-install --connect 'qemu:///system'";
   };
 }
