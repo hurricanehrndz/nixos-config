@@ -536,6 +536,22 @@
         "type": "github"
       }
     },
+    "nvim-osc52-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1669126923,
+        "narHash": "sha256-tr0MeOdXf9ndJpdoBy8vyahuPdwXk94JyEQO3ppzfkU=",
+        "owner": "ojroques",
+        "repo": "nvim-osc52",
+        "rev": "5e7efbc047be9eca1307899137a89cd2b6b8125a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ojroques",
+        "repo": "nvim-osc52",
+        "type": "github"
+      }
+    },
     "nvim-window-src": {
       "flake": false,
       "locked": {
@@ -574,6 +590,7 @@
         "nur": "nur",
         "nvfetcher": "nvfetcher",
         "nvim-colorizer-src": "nvim-colorizer-src",
+        "nvim-osc52-src": "nvim-osc52-src",
         "nvim-window-src": "nvim-window-src",
         "snapraid-runner": "snapraid-runner"
       }

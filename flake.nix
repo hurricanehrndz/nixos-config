@@ -69,6 +69,10 @@
       url = "gitlab:yorickpeterse/nvim-window";
       flake = false;
     };
+    nvim-osc52-src = {
+      url = "github:ojroques/nvim-osc52";
+      flake = false;
+    };
 
     # tmux
     extrakto-src = {

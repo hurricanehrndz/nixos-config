@@ -39,17 +39,28 @@ in
       sumneko-lua-language-server
     ];
     extraConfig = ''
-      " Sensible defaults - mine
-      lua require("hrndz.options")
+      lua << EOF
+      -- Sensible defaults - mine
+      require("hrndz.options")
 
-      " Key mappings
-      lua require("hrndz.keymaps")
+      -- Key mappings
+      require("hrndz.keymaps")
+      -- Autocmds
+      require("hrndz.autocmds")
+      EOF
+
+
     '';
     plugins = with pkgs.vimPlugins;
       let
         nvim-window = pkgs.vimUtils.buildVimPluginFrom2Nix {
           pname = "nvim-window";
           src = inputs.nvim-window-src;
+          version = "master";
+        };
+        nvim-osc52 = pkgs.vimUtils.buildVimPluginFrom2Nix {
+          pname = "nvim-osc52";
+          src = inputs.nvim-osc52-src;
           version = "master";
         };
       in
@@ -195,7 +206,8 @@ in
         }
         neodev-nvim
 
-
+        # nice plugins
+        nvim-osc52
 
         # pictograms
         lspkind-nvim
