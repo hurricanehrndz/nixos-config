@@ -17,6 +17,11 @@ in
 
   boot.kernelModules = [ "kvm-amd" "kvm-intel" ];
   virtualisation.libvirtd.enable = true;
+  virtualisation.lxd.enable = true;
+  users.users.hurricane = {
+    extraGroups = [ "lxd" "libvirtd" "qemu-libvirtd" ];
+  };
+
   environment = {
     systemPackages = with pkgs; [
       virt-manager
