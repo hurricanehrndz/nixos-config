@@ -2,14 +2,14 @@
   description = "A highly structured configuration database.";
 
   nixConfig.extra-experimental-features = "nix-command flakes";
-  nixConfig.extra-substituters = "https://nrdxp.cachix.org https://nix-community.cachix.org";
-  nixConfig.extra-trusted-public-keys = "nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
+  nixConfig.extra-substituters = "https://nix-community.cachix.org";
+  nixConfig.extra-trusted-public-keys = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
 
   inputs = {
     # Track channels with commits tested and built by hydra
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
+    nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
 
     # Flake utilities.
     digga.url = "github:divnix/digga";
@@ -158,7 +158,7 @@
               agenix.nixosModules.age
               nur.nixosModules.nur
               snapraid-runner.nixosModules.snapraid-runner
-              { imports = [ nur-modules.repos.dukzcry.modules.cockpit ]; }
+              # { imports = [ nur-modules.repos.dukzcry.modules.cockpit ]; }
             ];
         };
 

@@ -69,11 +69,12 @@ in
     # Improve nix store disk usage
     gc.automatic = true;
 
-    # Prevents impurities in builds
-    useSandbox = lib.mkDefault (!isDarwin);
-
-    # Give root user and wheel group special Nix privileges.
-    trustedUsers = [ "root" "@wheel" ];
+    settings = {
+      # Prevents impurities in builds
+      sandbox = lib.mkDefault (!isDarwin);
+      # Give root user and wheel group special Nix privileges.
+      trusted-users = [ "root" "@wheel" ];
+    };
 
     # Generally useful nix option defaults
     extraOptions = ''

@@ -208,6 +208,7 @@ in
 
         # nice plugins
         nvim-osc52
+        vim-tmux-navigator
 
         # pictograms
         lspkind-nvim

@@ -21,6 +21,7 @@ in
   users.users.hurricane = {
     extraGroups = [ "lxd" "libvirtd" "qemu-libvirtd" ];
   };
+  security.polkit.enable = true;
 
   environment = {
     systemPackages = with pkgs; [
