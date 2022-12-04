@@ -1,8 +1,16 @@
 { config, lib, pkgs, self, ... }:
 
 {
-  # This is just a representation of the nix default
-  nix.systemFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+  nix = {
+    # This is just a representation of the nix default
+    settings = {
+      system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      # Improve nix store disk usage
+      auto-optimise-store = true;
+      allowed-users = [ "@wheel" ];
+    };
+    optimise.automatic = true;
+  };
 
   environment = {
 
@@ -20,12 +28,6 @@
 
   };
 
-  nix = {
-    # Improve nix store disk usage
-    autoOptimiseStore = true;
-    optimise.automatic = true;
-    allowedUsers = [ "@wheel" ];
-  };
 
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -69,7 +71,7 @@
       baseIndex = 1;
       keyMode = "vi";
       shortcut = "a";
-      terminal = "screen-256color";
+      terminal = "tmux-256color";
     };
   };
 

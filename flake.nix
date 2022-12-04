@@ -2,14 +2,14 @@
   description = "A highly structured configuration database.";
 
   nixConfig.extra-experimental-features = "nix-command flakes";
-  nixConfig.extra-substituters = "https://nrdxp.cachix.org https://nix-community.cachix.org";
-  nixConfig.extra-trusted-public-keys = "nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
+  nixConfig.extra-substituters = "https://nix-community.cachix.org";
+  nixConfig.extra-trusted-public-keys = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
 
   inputs = {
     # Track channels with commits tested and built by hydra
-    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixos-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
+    nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
 
     # Flake utilities.
     digga.url = "github:divnix/digga";
@@ -52,6 +52,34 @@
     naersk.url = "github:nmattia/naersk";
     naersk.inputs.nixpkgs.follows = "nixpkgs";
 
+    # neovim
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
+    gitsigns-src = {
+      url = "github:lewis6991/gitsigns.nvim";
+      flake = false;
+    };
+    nvim-colorizer-src = {
+      url = "github:NvChad/nvim-colorizer.lua";
+      flake = false;
+    };
+    nvim-window-src = {
+      url = "gitlab:yorickpeterse/nvim-window";
+      flake = false;
+    };
+    nvim-osc52-src = {
+      url = "github:ojroques/nvim-osc52";
+      flake = false;
+    };
+
+    # tmux
+    extrakto-src = {
+      url = "github:laktak/extrakto";
+      flake = false;
+    };
+
     nixpkgs.follows = "nixos-stable";
   };
 
@@ -69,6 +97,7 @@
     , nur
     , nvfetcher
     , snapraid-runner
+    , neovim-nightly
     , ...
     } @ inputs:
     digga.lib.mkFlake {
@@ -99,7 +128,9 @@
         })
 
         agenix.overlay
+        neovim-nightly.overlay
         nvfetcher.overlay
+        nur.overlay
         snapraid-runner.overlays.snapraid-runner
 
         (import ./pkgs)
@@ -113,13 +144,22 @@
             (digga.lib.importExportableModules ./modules/common)
             (digga.lib.importExportableModules ./modules/nixos)
           ];
-          modules = [
-            { lib.our = self.lib; }
-            digga.nixosModules.nixConfig
-            home-manager.nixosModules.home-manager
-            agenix.nixosModules.age
-            snapraid-runner.nixosModules.snapraid-runner
-          ];
+          modules =
+            let
+              nur-modules = import nur {
+                nurpkgs = nixpkgs.legacyPackages.x86_64-linux;
+                pkgs = nixpkgs.legacyPackages.x86_64-linux;
+              };
+            in
+            [
+              { lib.our = self.lib; }
+              digga.nixosModules.nixConfig
+              home-manager.nixosModules.home-manager
+              agenix.nixosModules.age
+              nur.nixosModules.nur
+              snapraid-runner.nixosModules.snapraid-runner
+              # { imports = [ nur-modules.repos.dukzcry.modules.cockpit ]; }
+            ];
         };
 
         imports = [ (digga.lib.importHosts ./hosts/nixos) ];
@@ -135,6 +175,7 @@
           suites = with profiles; rec {
             base = [ common system.nixos networking.dhcp-all users.hurricane ];
             mediaserver = [ plex ];
+            hardware-accel = [ hardware.opengl ];
             services-host = [ traefik ];
             remote-monitoring = [ netdata ];
           };

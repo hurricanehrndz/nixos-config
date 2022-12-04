@@ -13,11 +13,12 @@ channels: final: prev: {
     qutebrowser
     signal-desktop
     starship
+    tmux
+    tmuxPlugins
     deploy-rs
-    neovim-unwrapped
     neovimUtils
     neovim-remote
-    "vimPlugins.tokyonight-nvim"
+    vimPlugins
     ;
 
   haskellPackages = prev.haskellPackages.override
