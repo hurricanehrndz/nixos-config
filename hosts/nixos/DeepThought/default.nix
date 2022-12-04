@@ -19,9 +19,10 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 1;
+  boot.kernelParams = [ "i915.force_probe=46a6" ];
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.extraModulePackages = with config.boot.kernelPackages; [ it87 ];
-  boot.kernelModules = [ "coretemp" ];
+  # boot.extraModulePackages = with config.boot.kernelPackages; [ it87 ];
+  boot.kernelModules = [ "coretemp" "nct6775" ];
   networking.domain = "hrndz.ca";
 
   # secrets
