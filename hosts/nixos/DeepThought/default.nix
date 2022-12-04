@@ -14,12 +14,12 @@ let
 in
 {
 
-  imports = (with suites; base ++ services-host ++ mediaserver ++ remote-monitoring) ++ [ ./hardware-configuration.nix ];
+  imports = (with suites; base ++ services-host ++ mediaserver ++ remote-monitoring ++ hardware-accel) ++ [ ./hardware-configuration.nix ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 1;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModulePackages = with config.boot.kernelPackages; [ it87 ];
   boot.kernelModules = [ "coretemp" ];
   networking.domain = "hrndz.ca";
