@@ -12,14 +12,33 @@ in
 
   programs.lazygit = {
     enable = true;
-    settings = { };
+    settings = {
+      promptToReturnFromSubprocess = false;
+      os = {
+        editCommand = "nvr -s -l"; # see 'Configuring File Editing' section
+        editCommandTemplate = "{{editor}} +{{line}} -- {{filename}}";
+        openCommand = "nvr -s -l {{filename}}";
+      };
+      git = {
+        autorefresh = false;
+      };
+      keybinding = {
+        files = {
+          commitChanges = "C";
+          commitChangesWithEditor = "c";
+        };
+      };
+    };
   };
 
   programs.zsh.initExtra = ''
     if [[ -n "$NVIM" || -n "$NVIM_LISTEN_ADDRESS" ]]; then
+      export EDITOR="nvr -l"
+      export VISUAL="nvr --remote-tab-silent"
       alias vi="nvr -l"
       alias vim="nvr -l"
       alias nvim="nvr -l"
+      alias v="nvr -l"
     fi
     alias v="nvim"
   '';
