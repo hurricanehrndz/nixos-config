@@ -228,6 +228,14 @@ in
         # nice plugins
         nvim-osc52
         vim-tmux-navigator
+        nvim-notify
+        {
+          plugin = vim-better-whitespace;
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.whitespace")
+          '';
+        }
 
         # pictograms
         lspkind-nvim
