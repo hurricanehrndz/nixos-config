@@ -229,6 +229,7 @@ in
         nvim-osc52
         vim-tmux-navigator
         nvim-notify
+        undotree
         {
           plugin = vim-better-whitespace;
           type = "lua";
