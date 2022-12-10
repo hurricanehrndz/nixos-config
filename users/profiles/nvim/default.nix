@@ -231,6 +231,13 @@ in
         nvim-notify
         undotree
         {
+          plugin = feline-nvim;
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.feline")
+          '';
+        }
+        {
           plugin = nvim-surround;
           type = "lua";
           config = ''
