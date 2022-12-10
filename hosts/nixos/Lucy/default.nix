@@ -38,6 +38,7 @@ in
   };
 
   networking.domain = "hrndz.ca";
+  networking.firewall.allowedTCPPorts = [ 5900 5901 5902 5903 ];
   # Lucy has no swap device
   zramSwap.enable = true;
 
