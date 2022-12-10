@@ -55,6 +55,7 @@ in
       gcc
       ripgrep
       rnix-lsp
+      nixpkgs-fmt
       sumneko-lua-language-server
     ];
     extraConfig = ''
