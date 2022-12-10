@@ -231,6 +231,13 @@ in
         nvim-notify
         undotree
         {
+          plugin = nvim-surround;
+          type = "lua";
+          config = ''
+            require("hrndz.plugins.surround")
+          '';
+        }
+        {
           plugin = vim-better-whitespace;
           type = "lua";
           config = ''
