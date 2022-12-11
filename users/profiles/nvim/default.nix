@@ -135,6 +135,7 @@ in
         plenary-nvim
         popup-nvim
         telescope-fzf-native-nvim
+        telescope-file-browser-nvim
 
         # add some syntax highlighting
         nvim-ts-rainbow
