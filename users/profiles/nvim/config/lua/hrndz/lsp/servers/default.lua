@@ -1,9 +1,8 @@
 local M = {}
 
-M.setup = function(on_attach, capabilities)
+M.setup = function(on_attach, capabilities, server_name)
   local lspconfig = require("lspconfig")
-  lspconfig.rnix.setup({
-    settings = {},
+  lspconfig[server_name].setup({
     on_attach = on_attach,
     capabilities = capabilities,
   })

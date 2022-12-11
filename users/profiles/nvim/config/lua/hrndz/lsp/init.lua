@@ -63,7 +63,12 @@ vim.diagnostic.config({
   severity_sort = true, -- default to false
 })
 
-local lsp_servers = { "sumneko_lua", "rnix" }
+local lsp_servers = { "sumneko_lua", "rnix", "sourcekit" }
 for _, server_name in ipairs(lsp_servers) do
-  require("hrndz.lsp.servers." .. server_name).setup(custom_attach, capabilities)
+  local has_custom_setup, server = pcall(require, "hrndz.lsp.servers." .. server_name)
+  if has_custom_setup then
+    server.setup(custom_attach, capabilities)
+  else
+    require("hrndz.lsp.servers.default").setup(custom_attach, capabilities, server_name)
+  end
 end

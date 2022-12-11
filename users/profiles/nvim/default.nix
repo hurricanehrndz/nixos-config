@@ -8,6 +8,7 @@ in
   home.packages = with pkgs; [
     lazygit
     neovim-remote
+    swift
   ];
 
   programs.lazygit = {
