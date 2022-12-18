@@ -52,6 +52,15 @@
     naersk.url = "github:nmattia/naersk";
     naersk.inputs.nixpkgs.follows = "nixpkgs";
 
+    # pypi packages
+    yamllint-src = {
+      url = "github:adrienverge/yamllint";
+      flake = false;
+    };
+    yamlfixer-src = {
+      url = "github:opt-nc/yamlfixer";
+      flake = false;
+    };
     # neovim
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";

@@ -2,13 +2,39 @@
 let
   # Function to override the source of a package
   withSrc = pkg: src: pkg.overrideAttrs (_: { inherit src; });
+  yamllint = with pkgs.python3Packages; buildPythonApplication {
+    name = "yamllint";
+    src = inputs.yamllint-src;
+    doCheck = false;
+    propagatedBuildInputs = [ setuptools pyaml pathspec ];
+  };
+  yamlfixer = with pkgs.python3Packages; buildPythonApplication {
+    name = "yamlfixer";
+    src = inputs.yamlfixer-src;
+    doCheck = false;
+    propagatedBuildInputs = [ setuptools yamllint ];
+  };
 in
 {
 
   home.packages = with pkgs; [
+    beautysh
+    black
+    cbfmt
     lazygit
     neovim-remote
+    nixpkgs-fmt
+    nodePackages.markdownlint-cli
+    nodePackages.prettier
+    puppet-lint
+    ripgrep
+    shellcheck
+    shfmt
+    stylua
     swift
+    vale
+    yamlfixer
+    yamllint
   ];
 
   programs.lazygit = {
@@ -54,9 +80,8 @@ in
       # used to compile tree-sitter grammar
       tree-sitter
       gcc
-      ripgrep
+      # lsp
       rnix-lsp
-      nixpkgs-fmt
       sumneko-lua-language-server
     ];
     extraConfig = ''
@@ -217,6 +242,9 @@ in
         cmp_luasnip
         friendly-snippets
         vim-snippets
+
+        # formatters, linters
+        null-ls-nvim
 
         # add lsp config
         {

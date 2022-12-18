@@ -592,7 +592,9 @@
         "nvim-colorizer-src": "nvim-colorizer-src",
         "nvim-osc52-src": "nvim-osc52-src",
         "nvim-window-src": "nvim-window-src",
-        "snapraid-runner": "snapraid-runner"
+        "snapraid-runner": "snapraid-runner",
+        "yamlfixer-src": "yamlfixer-src",
+        "yamllint-src": "yamllint-src"
       }
     },
     "snapraid-runner": {
@@ -644,6 +646,38 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "yamlfixer-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1665612296,
+        "narHash": "sha256-gk1nvrmNE7saguWDrob6A+LzyGjsNARvFJJBWBNpNqw=",
+        "owner": "opt-nc",
+        "repo": "yamlfixer",
+        "rev": "b3294b63a83b797a96236d5e401092c2000f6870",
+        "type": "github"
+      },
+      "original": {
+        "owner": "opt-nc",
+        "repo": "yamlfixer",
+        "type": "github"
+      }
+    },
+    "yamllint-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1670868511,
+        "narHash": "sha256-P2+GDRh6kYIYWaJkLIWqpahn67HMgbZObEqrV3xVbzc=",
+        "owner": "adrienverge",
+        "repo": "yamllint",
+        "rev": "6194a282fc8035cd4c72c0e6814e2dd60f845478",
+        "type": "github"
+      },
+      "original": {
+        "owner": "adrienverge",
+        "repo": "yamllint",
         "type": "github"
       }
     }
