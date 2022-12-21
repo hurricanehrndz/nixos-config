@@ -36,7 +36,7 @@ telescope.setup({
     border = true,
     sorting_strategy = "ascending",
     path_display = {
-      shorten = 2
+      truncate = 3
     },
   },
 })
