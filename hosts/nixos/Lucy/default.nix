@@ -29,12 +29,14 @@ in
     ];
   };
 
-  services = {
-    myWgMesh = {
-      enable = true;
-      authKeyFile = config.age.secrets."tailscale.authkey".path;
-    };
+  services.myWgMesh = {
+    enable = true;
+    authKeyFile = config.age.secrets."tailscale.authkey".path;
+  };
 
+  services.myGnomeDesktop = {
+    enable = true;
+    userName = "hurricane";
   };
 
   # Wake on LAN
