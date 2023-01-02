@@ -101,6 +101,35 @@ in
     snapraid.touch = true;
   };
 
+  # add cache expiration script
+  systemd.services.snapraid-cache-expire = {
+    description = "Expire snapraid cache";
+    startAt = "03:00";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = pkgs.writeScript "snapraid-cache-expire" ''
+        #!${pkgs.bash}/bin/bash
+
+        CACHE="/volumes/cache/media"
+        BACKING="/volumes/backing_storage/media"
+        PERCENTAGE=40
+
+        set -o errexit
+        while [[ "$(${pkgs.coreutils}/bin/df --output=pcent "''${CACHE}" | ${pkgs.gnugrep}/bin/grep -v Use | ${pkgs.coreutils}/bin/cut -d'%' -f1)" -gt ''${PERCENTAGE} ]]; do
+          cd "''${CACHE}"
+          echo "Cache needs expiring ..."
+          FILE=$(${pkgs.ripgrep}/bin/rg --sort modified --files "./" | \
+                  ${pkgs.coreutils}/bin/head -n 1)
+          test -n "''${FILE}"
+          ${pkgs.rsync}/bin/rsync -avxHAXWESR --preallocate --remove-source-files "''${FILE}" "''${BACKING}/"
+          # remove empty directories
+          ${pkgs.fd}/bin/fd --type directory --type empty --min-depth 2 . "''${CACHE}/" -x rmdir
+          ${pkgs.fd}/bin/fd --type directory --type empty --min-depth 2 . "''${CACHE}/" -x rmdir
+        done
+      '';
+    };
+  };
+
   # smart monitoring
   services.smartd = {
     enable = true;
